@@ -39,6 +39,7 @@
 */
 
 #include <xdc/runtime/Error.h>
+
 #include <ti/sysbios/family/arm/cc26xx/Power.h>
 #include <ti/sysbios/BIOS.h>
 #include <ti/sysbios/knl/Clock.h>
@@ -51,8 +52,7 @@
 #include "hidemukbd.h"
 #include "util.h"
 #include <ti/drivers/pin/PINCC26XX.h>
-#include <ti/drivers/UART.h>
-
+#include "myuart.h"
 /* Header files required to enable instruction fetch cache */
 #include <inc/hw_memmap.h>
 #include <driverlib/vims.h>
@@ -65,76 +65,34 @@
 bleUserCfg_t user0Cfg = BLE_USER_CFG;
 
 #endif // USE_DEFAULT_USER_CFG
-
-#define TASKSTACKSIZE     768
-
-Task_Struct task0Struct;
-Char task0Stack[TASKSTACKSIZE];
 /**
  * Exception handler
  */
 void exceptionHandler()
 {
-	volatile uint8_t i = 1;
-	PINCC26XX_setOutputValue(Board_RLED, 1);
-    while(i){}
+    while(1){}
 }
 Clock_Handle clkHandle;
-volatile uint8_t uart_flag;
+//volatile uint8_t uart_flag;
 /*Clock 1s*/
 Void clkFxn(UArg arg0)
 {
     PINCC26XX_setOutputValue(Board_GLED, PINCC26XX_getOutputValue(Board_GLED) ^ 1);
-    uart_flag = 1;
+    Uart_Print("100ms\r\n");
     Clock_start(clkHandle);
 }
 
-/*uart echo*/
-Void echoFxn(UArg arg0, UArg arg1)
-{
-    char x[] = "A";
-    UART_Handle uart;
-    UART_Params uartParams;
-
-    /* Create a UART with data processing off. */
-    UART_Params_init(&uartParams);
-    uartParams.writeDataMode = UART_DATA_BINARY;
-    uartParams.readDataMode = UART_DATA_BINARY;
-    uartParams.readReturnMode = UART_RETURN_FULL;
-    uartParams.readEcho = UART_ECHO_OFF;
-    uartParams.baudRate = 115200;
-    uart = UART_open(Board_UART0, &uartParams);
-
-    if (uart == NULL) {
-        PINCC26XX_setOutputValue(Board_RLED, 1);
-    }
-
-    //UART_write(uart, echoPrompt, sizeof(echoPrompt));
-
-    /* Loop forever echoing */
-    while (1) {
-        if (uart_flag){
-            uart_flag = 0;
-            UART_write(uart, x, 1);
-        }
-    }
-}
 /*
  *  ======== main ========
  */
 int main()
 {
-    Task_Params taskParams;
     Clock_Params clockParams;
 
     PIN_init(BoardGpioInitTable);
-    Board_initUART();
 
-    /* Construct BIOS objects */
-    Task_Params_init(&taskParams);
-    taskParams.stackSize = TASKSTACKSIZE;
-    taskParams.stack = &task0Stack;
-    Task_construct(&task0Struct, (Task_FuncPtr)echoFxn, &taskParams, NULL);
+    /* Construct BIOS objects*/
+    Uart_createTask();
 
     Clock_Params_init(&clockParams);
     clockParams.period = 0;
@@ -173,7 +131,6 @@ int main()
  */
 Void smallErrorHook(Error_Block *eb)
 {
-    PINCC26XX_setOutputValue(Board_RLED, 1);
   for (;;);
 }
 
@@ -182,6 +139,5 @@ Void smallErrorHook(Error_Block *eb)
  */
 void halAssertHandler(void)
 {
-    PINCC26XX_setOutputValue(Board_RLED, 1);
   for (;;);
 }
