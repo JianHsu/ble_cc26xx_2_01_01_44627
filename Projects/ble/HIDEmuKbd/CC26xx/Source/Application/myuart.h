@@ -70,6 +70,7 @@ extern volatile uint8_t uart_flag;
  */
 extern void Uart_createTask(void);
 extern void Uart_Print(uint8_t* str);
+extern void Uart_Putchar(uint8_t c);
 
 /*********************************************************************
 *********************************************************************/

@@ -39,19 +39,20 @@
 */
 
 #include <xdc/runtime/Error.h>
-
 #include <ti/sysbios/family/arm/cc26xx/Power.h>
 #include <ti/sysbios/BIOS.h>
 #include <ti/sysbios/knl/Clock.h>
 #include <ti/sysbios/knl/Task.h>
-#include "ICall.h"
 
+#include <ti/drivers/pin/PINCC26XX.h>
+#include <ti/drivers/I2C.h>
+#include "ICall.h"
 #include "bcomdef.h"
 #include "peripheral.h"
 #include "hiddev.h"
 #include "hidemukbd.h"
 #include "util.h"
-#include <ti/drivers/pin/PINCC26XX.h>
+
 #include "myuart.h"
 /* Header files required to enable instruction fetch cache */
 #include <inc/hw_memmap.h>
@@ -65,6 +66,9 @@
 bleUserCfg_t user0Cfg = BLE_USER_CFG;
 
 #endif // USE_DEFAULT_USER_CFG
+
+volatile uint8_t i2c_flag = 0;
+uint8_t cnt_1s = 0;
 /**
  * Exception handler
  */
@@ -73,31 +77,94 @@ void exceptionHandler()
     while(1){}
 }
 Clock_Handle clkHandle;
-//volatile uint8_t uart_flag;
-/*Clock 1s*/
+
+/*Clock 100ms*/
 Void clkFxn(UArg arg0)
 {
     PINCC26XX_setOutputValue(Board_GLED, PINCC26XX_getOutputValue(Board_GLED) ^ 1);
-    Uart_Print("100ms\r\n");
+    cnt_1s++;
+    if (cnt_1s >= 10){
+        cnt_1s = 0;
+        Uart_Print("1s\r\n");
+    }
+
     Clock_start(clkHandle);
 }
 
+#define TASKSTACKSIZE       1024
+Task_Struct task0Struct;
+Char task0Stack[TASKSTACKSIZE];
+
+/*
+ *  ======== echoFxn ========
+ *  Task for this function is created statically. See the project's .cfg file.
+ */
+Void taskFxn(UArg arg0, UArg arg1)
+{
+    uint8_t i = 0;
+    uint8_t         txBuffer[1];
+    uint8_t         rxBuffer[1];
+    I2C_Handle      i2c;
+    I2C_Params      i2cParams;
+    I2C_Transaction i2cTransaction;
+
+    Board_initI2C();
+
+    /* Create I2C for usage */
+    I2C_Params_init(&i2cParams);
+    i2cParams.bitRate = I2C_400kHz;
+    i2c = I2C_open(Board_I2C, &i2cParams);
+    if (i2c == NULL) {
+        Uart_Print("Error Initializing I2C\n");
+    }
+
+    /* Point to the T ambient register and read its 2 bytes */
+    txBuffer[0] = 0x75; //WHO AM I
+    i2cTransaction.slaveAddress = 0x68;
+    i2cTransaction.writeBuf = txBuffer;
+    i2cTransaction.writeCount = 1;
+    i2cTransaction.readBuf = rxBuffer;
+    i2cTransaction.readCount = 1;
+
+
+    for (i = 0; i < 10; i++){
+        if (I2C_transfer(i2c, &i2cTransaction)) {
+            Uart_Putchar(rxBuffer[0]);
+        }
+        else {
+            Uart_Print("I2C Bus fault\n");
+        }
+    }
+
+
+    /* Deinitialized I2C */
+    I2C_close(i2c);
+    //Uart_Print("I2C closed!\n");
+}
 /*
  *  ======== main ========
  */
 int main()
 {
     Clock_Params clockParams;
+    Task_Params taskParams;
 
     PIN_init(BoardGpioInitTable);
 
-    /* Construct BIOS objects*/
+    /* Uart Task*/
     Uart_createTask();
 
+    /*Timer*/
     Clock_Params_init(&clockParams);
     clockParams.period = 0;
     clockParams.startFlag = TRUE;
     clkHandle = Clock_create(clkFxn, 10000, &clockParams, NULL);
+
+    /*I2C*/
+    Task_Params_init(&taskParams);
+    taskParams.stackSize = TASKSTACKSIZE;
+    taskParams.stack = &task0Stack;
+    Task_construct(&task0Struct, (Task_FuncPtr)taskFxn, &taskParams, NULL);
 
 #ifndef POWER_SAVING
     /* Set constraints for Standby, powerdown and idle mode */

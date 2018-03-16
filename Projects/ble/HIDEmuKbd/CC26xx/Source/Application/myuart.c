@@ -26,6 +26,24 @@ uint8_t  uartPrint_outArray[UART_PRINT_BUF_LEN];
 volatile uint16_t uartPrint_head = 0;
 volatile uint16_t uartPrint_tail = 0;
 /*********************************************************************
+ * @fn      Uart_Putchar
+ *
+ * @brief   Uart Print Function.
+ *
+ * @param   uint8_t* str.
+ *
+ * @return  none
+ */
+void Uart_Putchar(uint8_t c)
+{
+    uartPrint_tail++;
+    if (uartPrint_tail >= UART_PRINT_BUF_LEN)
+        uartPrint_tail = 0;
+
+    uartPrint_outArray[uartPrint_tail] = c;
+
+}
+/*********************************************************************
  * @fn      Uart_Print
  *
  * @brief   Uart Print Function.
@@ -45,7 +63,6 @@ void Uart_Print(uint8_t* str)
 
         uartPrint_outArray[uartPrint_tail] = str[i];
     }
-
 }
 /*********************************************************************
  * @fn      Uart_taskFxn
