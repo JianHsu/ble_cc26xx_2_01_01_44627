@@ -22,7 +22,7 @@ Task_Struct UarttaskStruct;
 Char UarttaskStack[UART_TASKSTACKSIZE];
 
 #define UART_PRINT_BUF_LEN      1024
-uint8_t  uartPrint_outArray[UART_PRINT_BUF_LEN];
+uint8_t  uartPrint_outArray[UART_PRINT_BUF_LEN] = {};
 volatile uint16_t uartPrint_head = 0;
 volatile uint16_t uartPrint_tail = 0;
 /*********************************************************************
@@ -93,7 +93,7 @@ Void UartFxn(UArg arg0, UArg arg1)
         PINCC26XX_setOutputValue(Board_RLED, 1);
     }
 
-    /* Loop forever echoing */
+    /* Loop forever */
     while (1) {
         if (uartPrint_head != uartPrint_tail){
 

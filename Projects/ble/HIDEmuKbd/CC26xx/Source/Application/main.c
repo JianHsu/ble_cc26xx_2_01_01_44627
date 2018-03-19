@@ -67,8 +67,6 @@ bleUserCfg_t user0Cfg = BLE_USER_CFG;
 
 #endif // USE_DEFAULT_USER_CFG
 
-volatile uint8_t i2c_flag = 0;
-uint8_t cnt_1s = 0;
 /**
  * Exception handler
  */
@@ -76,24 +74,17 @@ void exceptionHandler()
 {
     while(1){}
 }
-Clock_Handle clkHandle;
-
-/*Clock 100ms*/
-Void clkFxn(UArg arg0)
-{
-    PINCC26XX_setOutputValue(Board_GLED, PINCC26XX_getOutputValue(Board_GLED) ^ 1);
-    cnt_1s++;
-    if (cnt_1s >= 10){
-        cnt_1s = 0;
-        Uart_Print("1s\r\n");
-    }
-
-    Clock_start(clkHandle);
-}
 
 #define TASKSTACKSIZE       1024
 Task_Struct task0Struct;
 Char task0Stack[TASKSTACKSIZE];
+
+
+
+
+/*Clock 100ms*/
+
+
 
 /*
  *  ======== echoFxn ========
@@ -139,26 +130,18 @@ Void taskFxn(UArg arg0, UArg arg1)
 
     /* Deinitialized I2C */
     I2C_close(i2c);
-    //Uart_Print("I2C closed!\n");
 }
 /*
  *  ======== main ========
  */
 int main()
 {
-    Clock_Params clockParams;
     Task_Params taskParams;
 
     PIN_init(BoardGpioInitTable);
 
     /* Uart Task*/
     Uart_createTask();
-
-    /*Timer*/
-    Clock_Params_init(&clockParams);
-    clockParams.period = 0;
-    clockParams.startFlag = TRUE;
-    clkHandle = Clock_create(clkFxn, 10000, &clockParams, NULL);
 
     /*I2C*/
     Task_Params_init(&taskParams);
@@ -188,6 +171,7 @@ int main()
     HidEmuKbd_createTask();
 
     /* enable interrupts and start SYS/BIOS */
+    Uart_Print("SYS_start...\r\n");
     BIOS_start();
 
     return 0;
