@@ -1,16 +1,16 @@
 # FIXED
 
 Application/simpleBLEPeripheral.obj: C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Projects/ble/SimpleBLEPeripheral/CC26xx/Source/Application/simpleBLEPeripheral.c
-Application/simpleBLEPeripheral.obj: C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/string.h
-Application/simpleBLEPeripheral.obj: C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/linkage.h
+Application/simpleBLEPeripheral.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/string.h
+Application/simpleBLEPeripheral.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/linkage.h
 Application/simpleBLEPeripheral.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/sysbios/knl/Task.h
 Application/simpleBLEPeripheral.obj: C:/ti/xdctools_3_31_01_33_core/packages/xdc/std.h
-Application/simpleBLEPeripheral.obj: C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stdarg.h
-Application/simpleBLEPeripheral.obj: C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stddef.h
+Application/simpleBLEPeripheral.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdarg.h
+Application/simpleBLEPeripheral.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stddef.h
 Application/simpleBLEPeripheral.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/targets/arm/elf/std.h
 Application/simpleBLEPeripheral.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/targets/arm/elf/M3.h
 Application/simpleBLEPeripheral.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/targets/std.h
-Application/simpleBLEPeripheral.obj: C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stdint.h
+Application/simpleBLEPeripheral.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdint.h
 Application/simpleBLEPeripheral.obj: C:/ti/xdctools_3_31_01_33_core/packages/xdc/runtime/xdc.h
 Application/simpleBLEPeripheral.obj: C:/ti/xdctools_3_31_01_33_core/packages/xdc/runtime/Types.h
 Application/simpleBLEPeripheral.obj: C:/ti/xdctools_3_31_01_33_core/packages/xdc/runtime/Types__prologue.h
@@ -160,12 +160,12 @@ Application/simpleBLEPeripheral.obj: C:/ti/simplelink/ble_cc26xx_2_01_01_44627/C
 Application/simpleBLEPeripheral.obj: C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/hal/target/CC2650TIRTOS/../_common/cc26xx/_hal_types.h
 Application/simpleBLEPeripheral.obj: C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/hal/include/hal_defs.h
 Application/simpleBLEPeripheral.obj: C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/osal/include/OSAL.h
-Application/simpleBLEPeripheral.obj: C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/limits.h
+Application/simpleBLEPeripheral.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/limits.h
 Application/simpleBLEPeripheral.obj: C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/osal/include/OSAL_Memory.h
 Application/simpleBLEPeripheral.obj: C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/osal/include/OSAL_Timers.h
 Application/simpleBLEPeripheral.obj: C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/icall/include/ICall.h
-Application/simpleBLEPeripheral.obj: C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stdbool.h
-Application/simpleBLEPeripheral.obj: C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stdlib.h
+Application/simpleBLEPeripheral.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdbool.h
+Application/simpleBLEPeripheral.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdlib.h
 Application/simpleBLEPeripheral.obj: C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/ble/controller/CC26xx/include/ll.h
 Application/simpleBLEPeripheral.obj: C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/hal/include/hal_assert.h
 Application/simpleBLEPeripheral.obj: C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/hal/include/hal_uart.h
@@ -219,11 +219,11 @@ Application/simpleBLEPeripheral.obj: C:/ti/simplelink/ble_cc26xx_2_01_01_44627/P
 Application/simpleBLEPeripheral.obj: C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Projects/ble/common/cc26xx/board_key.h
 Application/simpleBLEPeripheral.obj: C:/ti/tirtos_simplelink_2_13_00_06/packages/ti/boards/SRF06EB/CC2650EM_7ID/Board.h
 Application/simpleBLEPeripheral.obj: C:/ti/tirtos_simplelink_2_13_00_06/packages/ti/drivers/PIN.h
-Application/simpleBLEPeripheral.obj: C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stddef.h
+Application/simpleBLEPeripheral.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stddef.h
 Application/simpleBLEPeripheral.obj: C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Projects/ble/SimpleBLEPeripheral/CC26xx/Source/Application/simpleBLEPeripheral.h
 Application/simpleBLEPeripheral.obj: C:/ti/tirtos_simplelink_2_13_00_06/packages/ti/drivers/lcd/LCDDogm1286.h
 Application/simpleBLEPeripheral.obj: C:/ti/tirtos_simplelink_2_13_00_06/packages/ti/drivers/SPI.h
-Application/simpleBLEPeripheral.obj: C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stddef.h
+Application/simpleBLEPeripheral.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stddef.h
 Application/simpleBLEPeripheral.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/sysbios/family/arm/m3/Hwi.h
 Application/simpleBLEPeripheral.obj: C:/ti/xdctools_3_31_01_33_core/packages/xdc/runtime/Types.h
 Application/simpleBLEPeripheral.obj: C:/ti/xdctools_3_31_01_33_core/packages/xdc/runtime/IInstance.h
@@ -255,16 +255,16 @@ Application/simpleBLEPeripheral.obj: C:/ti/tirtos_simplelink_2_13_00_06/products
 Application/simpleBLEPeripheral.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/sysbios/knl/Semaphore.h
 
 C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Projects/ble/SimpleBLEPeripheral/CC26xx/Source/Application/simpleBLEPeripheral.c: 
-C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/string.h: 
-C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/linkage.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/string.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/linkage.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/sysbios/knl/Task.h: 
 C:/ti/xdctools_3_31_01_33_core/packages/xdc/std.h: 
-C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stdarg.h: 
-C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stddef.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdarg.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stddef.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/targets/arm/elf/std.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/targets/arm/elf/M3.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/targets/std.h: 
-C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stdint.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdint.h: 
 C:/ti/xdctools_3_31_01_33_core/packages/xdc/runtime/xdc.h: 
 C:/ti/xdctools_3_31_01_33_core/packages/xdc/runtime/Types.h: 
 C:/ti/xdctools_3_31_01_33_core/packages/xdc/runtime/Types__prologue.h: 
@@ -414,12 +414,12 @@ C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/hal/target/CC2650TIRTOS/hal
 C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/hal/target/CC2650TIRTOS/../_common/cc26xx/_hal_types.h: 
 C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/hal/include/hal_defs.h: 
 C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/osal/include/OSAL.h: 
-C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/limits.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/limits.h: 
 C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/osal/include/OSAL_Memory.h: 
 C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/osal/include/OSAL_Timers.h: 
 C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/icall/include/ICall.h: 
-C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stdbool.h: 
-C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stdlib.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdbool.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdlib.h: 
 C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/ble/controller/CC26xx/include/ll.h: 
 C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/hal/include/hal_assert.h: 
 C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/hal/include/hal_uart.h: 
@@ -473,11 +473,11 @@ C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Projects/ble/common/cc26xx/board_lcd.h
 C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Projects/ble/common/cc26xx/board_key.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/packages/ti/boards/SRF06EB/CC2650EM_7ID/Board.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/packages/ti/drivers/PIN.h: 
-C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stddef.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stddef.h: 
 C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Projects/ble/SimpleBLEPeripheral/CC26xx/Source/Application/simpleBLEPeripheral.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/packages/ti/drivers/lcd/LCDDogm1286.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/packages/ti/drivers/SPI.h: 
-C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stddef.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stddef.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/sysbios/family/arm/m3/Hwi.h: 
 C:/ti/xdctools_3_31_01_33_core/packages/xdc/runtime/Types.h: 
 C:/ti/xdctools_3_31_01_33_core/packages/xdc/runtime/IInstance.h: 

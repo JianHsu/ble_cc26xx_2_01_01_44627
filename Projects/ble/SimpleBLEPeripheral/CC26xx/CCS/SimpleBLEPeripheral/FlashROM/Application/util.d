@@ -1,15 +1,15 @@
 # FIXED
 
 Application/util.obj: C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Projects/ble/common/cc26xx/util.c
-Application/util.obj: C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stdbool.h
+Application/util.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdbool.h
 Application/util.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/sysbios/knl/Clock.h
 Application/util.obj: C:/ti/xdctools_3_31_01_33_core/packages/xdc/std.h
-Application/util.obj: C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stdarg.h
-Application/util.obj: C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stddef.h
+Application/util.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdarg.h
+Application/util.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stddef.h
 Application/util.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/targets/arm/elf/std.h
 Application/util.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/targets/arm/elf/M3.h
 Application/util.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/targets/std.h
-Application/util.obj: C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stdint.h
+Application/util.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdint.h
 Application/util.obj: C:/ti/xdctools_3_31_01_33_core/packages/xdc/runtime/xdc.h
 Application/util.obj: C:/ti/xdctools_3_31_01_33_core/packages/xdc/runtime/Types.h
 Application/util.obj: C:/ti/xdctools_3_31_01_33_core/packages/xdc/runtime/Types__prologue.h
@@ -150,8 +150,8 @@ Application/util.obj: C:/ti/xdctools_3_31_01_33_core/packages/xdc/runtime/IModul
 Application/util.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/sysbios/knl/Event__epilogue.h
 Application/util.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/sysbios/knl/Queue.h
 Application/util.obj: C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/icall/include/ICall.h
-Application/util.obj: C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stdlib.h
-Application/util.obj: C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/linkage.h
+Application/util.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdlib.h
+Application/util.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/linkage.h
 Application/util.obj: C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/ble/include/bcomdef.h
 Application/util.obj: C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/osal/include/comdef.h
 Application/util.obj: C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/hal/target/CC2650TIRTOS/hal_types.h
@@ -163,15 +163,15 @@ Application/util.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_0
 Application/util.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/sysbios/knl/Semaphore.h
 
 C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Projects/ble/common/cc26xx/util.c: 
-C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stdbool.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdbool.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/sysbios/knl/Clock.h: 
 C:/ti/xdctools_3_31_01_33_core/packages/xdc/std.h: 
-C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stdarg.h: 
-C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stddef.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdarg.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stddef.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/targets/arm/elf/std.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/targets/arm/elf/M3.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/targets/std.h: 
-C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stdint.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdint.h: 
 C:/ti/xdctools_3_31_01_33_core/packages/xdc/runtime/xdc.h: 
 C:/ti/xdctools_3_31_01_33_core/packages/xdc/runtime/Types.h: 
 C:/ti/xdctools_3_31_01_33_core/packages/xdc/runtime/Types__prologue.h: 
@@ -312,8 +312,8 @@ C:/ti/xdctools_3_31_01_33_core/packages/xdc/runtime/IModule.h:
 C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/sysbios/knl/Event__epilogue.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/sysbios/knl/Queue.h: 
 C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/icall/include/ICall.h: 
-C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stdlib.h: 
-C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/linkage.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdlib.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/linkage.h: 
 C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/ble/include/bcomdef.h: 
 C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/osal/include/comdef.h: 
 C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/hal/target/CC2650TIRTOS/hal_types.h: 

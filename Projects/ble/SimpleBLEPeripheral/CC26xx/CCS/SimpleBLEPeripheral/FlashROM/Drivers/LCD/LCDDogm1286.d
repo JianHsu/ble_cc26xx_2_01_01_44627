@@ -1,15 +1,15 @@
 # FIXED
 
 Drivers/LCD/LCDDogm1286.obj: C:/ti/tirtos_simplelink_2_13_00_06/packages/ti/drivers/lcd/LCDDogm1286.c
-Drivers/LCD/LCDDogm1286.obj: C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/string.h
-Drivers/LCD/LCDDogm1286.obj: C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/linkage.h
+Drivers/LCD/LCDDogm1286.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/string.h
+Drivers/LCD/LCDDogm1286.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/linkage.h
 Drivers/LCD/LCDDogm1286.obj: C:/ti/xdctools_3_31_01_33_core/packages/xdc/std.h
-Drivers/LCD/LCDDogm1286.obj: C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stdarg.h
-Drivers/LCD/LCDDogm1286.obj: C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stddef.h
+Drivers/LCD/LCDDogm1286.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdarg.h
+Drivers/LCD/LCDDogm1286.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stddef.h
 Drivers/LCD/LCDDogm1286.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/targets/arm/elf/std.h
 Drivers/LCD/LCDDogm1286.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/targets/arm/elf/M3.h
 Drivers/LCD/LCDDogm1286.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/targets/std.h
-Drivers/LCD/LCDDogm1286.obj: C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stdint.h
+Drivers/LCD/LCDDogm1286.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdint.h
 Drivers/LCD/LCDDogm1286.obj: C:/ti/xdctools_3_31_01_33_core/packages/xdc/runtime/Error.h
 Drivers/LCD/LCDDogm1286.obj: C:/ti/xdctools_3_31_01_33_core/packages/xdc/runtime/xdc.h
 Drivers/LCD/LCDDogm1286.obj: C:/ti/xdctools_3_31_01_33_core/packages/xdc/runtime/Types.h
@@ -204,12 +204,12 @@ Drivers/LCD/LCDDogm1286.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_
 Drivers/LCD/LCDDogm1286.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/sysbios/knl/Clock.h
 Drivers/LCD/LCDDogm1286.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/sysbios/knl/package/Clock_TimerProxy.h
 Drivers/LCD/LCDDogm1286.obj: C:/ti/tirtos_simplelink_2_13_00_06/packages/ti/drivers/SPI.h
-Drivers/LCD/LCDDogm1286.obj: C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stdbool.h
-Drivers/LCD/LCDDogm1286.obj: C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stddef.h
+Drivers/LCD/LCDDogm1286.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdbool.h
+Drivers/LCD/LCDDogm1286.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stddef.h
 Drivers/LCD/LCDDogm1286.obj: C:/ti/tirtos_simplelink_2_13_00_06/packages/ti/drivers/spi/SPICC26XXDMA.h
 Drivers/LCD/LCDDogm1286.obj: C:/ti/tirtos_simplelink_2_13_00_06/packages/ti/drivers/pin/PINCC26XX.h
 Drivers/LCD/LCDDogm1286.obj: C:/ti/tirtos_simplelink_2_13_00_06/packages/ti/drivers/PIN.h
-Drivers/LCD/LCDDogm1286.obj: C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stddef.h
+Drivers/LCD/LCDDogm1286.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stddef.h
 Drivers/LCD/LCDDogm1286.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600/inc/hw_types.h
 Drivers/LCD/LCDDogm1286.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600/inc/hw_chip_def.h
 Drivers/LCD/LCDDogm1286.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600/driverlib/ioc.h
@@ -224,7 +224,7 @@ Drivers/LCD/LCDDogm1286.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxw
 Drivers/LCD/LCDDogm1286.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600/driverlib/gpio.h
 Drivers/LCD/LCDDogm1286.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600/inc/hw_gpio.h
 Drivers/LCD/LCDDogm1286.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/sysbios/family/arm/m3/Hwi.h
-Drivers/LCD/LCDDogm1286.obj: C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stddef.h
+Drivers/LCD/LCDDogm1286.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stddef.h
 Drivers/LCD/LCDDogm1286.obj: C:/ti/tirtos_simplelink_2_13_00_06/packages/ti/drivers/dma/UDMACC26XX.h
 Drivers/LCD/LCDDogm1286.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600/driverlib/udma.h
 Drivers/LCD/LCDDogm1286.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600/inc/hw_udma.h
@@ -249,15 +249,15 @@ Drivers/LCD/LCDDogm1286.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxw
 Drivers/LCD/LCDDogm1286.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600/inc/hw_ssi.h
 
 C:/ti/tirtos_simplelink_2_13_00_06/packages/ti/drivers/lcd/LCDDogm1286.c: 
-C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/string.h: 
-C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/linkage.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/string.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/linkage.h: 
 C:/ti/xdctools_3_31_01_33_core/packages/xdc/std.h: 
-C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stdarg.h: 
-C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stddef.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdarg.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stddef.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/targets/arm/elf/std.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/targets/arm/elf/M3.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/targets/std.h: 
-C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stdint.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdint.h: 
 C:/ti/xdctools_3_31_01_33_core/packages/xdc/runtime/Error.h: 
 C:/ti/xdctools_3_31_01_33_core/packages/xdc/runtime/xdc.h: 
 C:/ti/xdctools_3_31_01_33_core/packages/xdc/runtime/Types.h: 
@@ -452,12 +452,12 @@ C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/sysbios/
 C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/sysbios/knl/Clock.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/sysbios/knl/package/Clock_TimerProxy.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/packages/ti/drivers/SPI.h: 
-C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stdbool.h: 
-C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stddef.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdbool.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stddef.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/packages/ti/drivers/spi/SPICC26XXDMA.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/packages/ti/drivers/pin/PINCC26XX.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/packages/ti/drivers/PIN.h: 
-C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stddef.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stddef.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600/inc/hw_types.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600/inc/hw_chip_def.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600/driverlib/ioc.h: 
@@ -472,7 +472,7 @@ C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600/driverlib/r
 C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600/driverlib/gpio.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600/inc/hw_gpio.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/sysbios/family/arm/m3/Hwi.h: 
-C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stddef.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stddef.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/packages/ti/drivers/dma/UDMACC26XX.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600/driverlib/udma.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600/inc/hw_udma.h: 

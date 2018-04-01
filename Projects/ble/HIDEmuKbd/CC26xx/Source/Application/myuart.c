@@ -7,9 +7,9 @@
   Description:    send uart.
 *
 */
-
 #include <ti/sysbios/knl/Task.h>
-
+#include <ti/sysbios/BIOS.h>
+#include <ICall.h>
 #include <ti/drivers/pin/PINCC26XX.h>
 #include <ti/drivers/UART.h>
 #include "Board.h"
@@ -24,7 +24,7 @@ Char UarttaskStack[UART_TASKSTACKSIZE];
 #define UART_PRINT_BUF_LEN      1024
 uint8_t  uartPrint_outArray[UART_PRINT_BUF_LEN] = {};
 volatile uint16_t uartPrint_head = 0;
-volatile uint16_t uartPrint_tail = 0;
+volatile uint16_t uartPrint_tail = 1;
 /*********************************************************************
  * @fn      Uart_Putchar
  *
@@ -41,7 +41,6 @@ void Uart_Putchar(uint8_t c)
         uartPrint_tail = 0;
 
     uartPrint_outArray[uartPrint_tail] = c;
-
 }
 /*********************************************************************
  * @fn      Uart_Print
@@ -56,13 +55,13 @@ void Uart_Print(uint8_t* str)
 {
     uint16_t i = 0;
 
-    for (i = 0; i < strlen(str); i++){
+    do{
         uartPrint_tail++;
         if (uartPrint_tail >= UART_PRINT_BUF_LEN)
             uartPrint_tail = 0;
 
         uartPrint_outArray[uartPrint_tail] = str[i];
-    }
+    }while(str[++i] != '\0');
 }
 /*********************************************************************
  * @fn      Uart_taskFxn
@@ -95,7 +94,7 @@ Void UartFxn(UArg arg0, UArg arg1)
 
     /* Loop forever */
     while (1) {
-        if (uartPrint_head != uartPrint_tail){
+        while (uartPrint_head != uartPrint_tail){
 
             uartPrint_head++;
             if (uartPrint_head >= UART_PRINT_BUF_LEN)
@@ -123,6 +122,7 @@ void Uart_createTask(void)
   Task_Params_init(&taskParams);
   taskParams.stack = &UarttaskStack;
   taskParams.stackSize = UART_TASKSTACKSIZE;
+  taskParams.priority = 1;
 
   Task_construct(&UarttaskStruct, (Task_FuncPtr)UartFxn, &taskParams, NULL);
 }

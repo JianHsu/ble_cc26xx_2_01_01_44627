@@ -3,12 +3,12 @@
 Startup/main.obj: C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Projects/ble/SimpleBLEPeripheral/CC26xx/Source/Application/main.c
 Startup/main.obj: C:/ti/xdctools_3_31_01_33_core/packages/xdc/runtime/Error.h
 Startup/main.obj: C:/ti/xdctools_3_31_01_33_core/packages/xdc/std.h
-Startup/main.obj: C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stdarg.h
-Startup/main.obj: C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stddef.h
+Startup/main.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdarg.h
+Startup/main.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stddef.h
 Startup/main.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/targets/arm/elf/std.h
 Startup/main.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/targets/arm/elf/M3.h
 Startup/main.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/targets/std.h
-Startup/main.obj: C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stdint.h
+Startup/main.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdint.h
 Startup/main.obj: C:/ti/xdctools_3_31_01_33_core/packages/xdc/runtime/xdc.h
 Startup/main.obj: C:/ti/xdctools_3_31_01_33_core/packages/xdc/runtime/Types.h
 Startup/main.obj: C:/ti/xdctools_3_31_01_33_core/packages/xdc/runtime/Types__prologue.h
@@ -129,9 +129,9 @@ Startup/main.obj: C:/ti/xdctools_3_31_01_33_core/packages/xdc/runtime/IGateProvi
 Startup/main.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/sysbios/BIOS__epilogue.h
 Startup/main.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/sysbios/package/BIOS_RtsGateProxy.h
 Startup/main.obj: C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/icall/include/ICall.h
-Startup/main.obj: C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stdbool.h
-Startup/main.obj: C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stdlib.h
-Startup/main.obj: C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/linkage.h
+Startup/main.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdbool.h
+Startup/main.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdlib.h
+Startup/main.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/linkage.h
 Startup/main.obj: C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/ble/include/bcomdef.h
 Startup/main.obj: C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/osal/include/comdef.h
 Startup/main.obj: C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/hal/target/CC2650TIRTOS/hal_types.h
@@ -152,7 +152,7 @@ Startup/main.obj: C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/hal/targe
 Startup/main.obj: C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/hal/target/CC2650TIRTOS/hal_types.h
 Startup/main.obj: C:/ti/tirtos_simplelink_2_13_00_06/packages/ti/boards/SRF06EB/CC2650EM_7ID/board.h
 Startup/main.obj: C:/ti/tirtos_simplelink_2_13_00_06/packages/ti/drivers/PIN.h
-Startup/main.obj: C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stddef.h
+Startup/main.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stddef.h
 Startup/main.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600/driverlib/ioc.h
 Startup/main.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600/inc/hw_ioc.h
 Startup/main.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600/inc/hw_ints.h
@@ -165,12 +165,12 @@ Startup/main.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01
 C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Projects/ble/SimpleBLEPeripheral/CC26xx/Source/Application/main.c: 
 C:/ti/xdctools_3_31_01_33_core/packages/xdc/runtime/Error.h: 
 C:/ti/xdctools_3_31_01_33_core/packages/xdc/std.h: 
-C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stdarg.h: 
-C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stddef.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdarg.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stddef.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/targets/arm/elf/std.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/targets/arm/elf/M3.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/targets/std.h: 
-C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stdint.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdint.h: 
 C:/ti/xdctools_3_31_01_33_core/packages/xdc/runtime/xdc.h: 
 C:/ti/xdctools_3_31_01_33_core/packages/xdc/runtime/Types.h: 
 C:/ti/xdctools_3_31_01_33_core/packages/xdc/runtime/Types__prologue.h: 
@@ -291,9 +291,9 @@ C:/ti/xdctools_3_31_01_33_core/packages/xdc/runtime/IGateProvider.h:
 C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/sysbios/BIOS__epilogue.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/sysbios/package/BIOS_RtsGateProxy.h: 
 C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/icall/include/ICall.h: 
-C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stdbool.h: 
-C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stdlib.h: 
-C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/linkage.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdbool.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdlib.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/linkage.h: 
 C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/ble/include/bcomdef.h: 
 C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/osal/include/comdef.h: 
 C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/hal/target/CC2650TIRTOS/hal_types.h: 
@@ -314,7 +314,7 @@ C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/hal/target/_common/cc26xx/r
 C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/hal/target/CC2650TIRTOS/hal_types.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/packages/ti/boards/SRF06EB/CC2650EM_7ID/board.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/packages/ti/drivers/PIN.h: 
-C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stddef.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stddef.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600/driverlib/ioc.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600/inc/hw_ioc.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600/inc/hw_ints.h: 

@@ -1,15 +1,15 @@
 # FIXED
 
 PROFILES/peripheral.obj: C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Projects/ble/Profiles/Roles/CC26xx/peripheral.c
-PROFILES/peripheral.obj: C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/string.h
-PROFILES/peripheral.obj: C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/linkage.h
+PROFILES/peripheral.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/string.h
+PROFILES/peripheral.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/linkage.h
 PROFILES/peripheral.obj: C:/ti/xdctools_3_31_01_33_core/packages/xdc/std.h
-PROFILES/peripheral.obj: C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stdarg.h
-PROFILES/peripheral.obj: C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stddef.h
+PROFILES/peripheral.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdarg.h
+PROFILES/peripheral.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stddef.h
 PROFILES/peripheral.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/targets/arm/elf/std.h
 PROFILES/peripheral.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/targets/arm/elf/M3.h
 PROFILES/peripheral.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/targets/std.h
-PROFILES/peripheral.obj: C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stdint.h
+PROFILES/peripheral.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdint.h
 PROFILES/peripheral.obj: C:/ti/xdctools_3_31_01_33_core/packages/xdc/runtime/Error.h
 PROFILES/peripheral.obj: C:/ti/xdctools_3_31_01_33_core/packages/xdc/runtime/xdc.h
 PROFILES/peripheral.obj: C:/ti/xdctools_3_31_01_33_core/packages/xdc/runtime/Types.h
@@ -185,7 +185,7 @@ PROFILES/peripheral.obj: C:/ti/xdctools_3_31_01_33_core/packages/xdc/runtime/IMo
 PROFILES/peripheral.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/sysbios/knl/Event__epilogue.h
 PROFILES/peripheral.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/sysbios/knl/Queue.h
 PROFILES/peripheral.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600/driverlib/ioc.h
-PROFILES/peripheral.obj: C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stdbool.h
+PROFILES/peripheral.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdbool.h
 PROFILES/peripheral.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600/inc/hw_types.h
 PROFILES/peripheral.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600/inc/hw_chip_def.h
 PROFILES/peripheral.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600/inc/hw_memmap.h
@@ -205,11 +205,11 @@ PROFILES/peripheral.obj: C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/ha
 PROFILES/peripheral.obj: C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/hal/target/CC2650TIRTOS/../_common/cc26xx/_hal_types.h
 PROFILES/peripheral.obj: C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/hal/include/hal_defs.h
 PROFILES/peripheral.obj: C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/osal/include/OSAL.h
-PROFILES/peripheral.obj: C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/limits.h
+PROFILES/peripheral.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/limits.h
 PROFILES/peripheral.obj: C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/osal/include/OSAL_Memory.h
 PROFILES/peripheral.obj: C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/osal/include/OSAL_Timers.h
 PROFILES/peripheral.obj: C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/icall/include/ICall.h
-PROFILES/peripheral.obj: C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stdlib.h
+PROFILES/peripheral.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdlib.h
 PROFILES/peripheral.obj: C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/ble/include/sm.h
 PROFILES/peripheral.obj: C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/ble/include/gatt.h
 PROFILES/peripheral.obj: C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/ble/include/att.h
@@ -247,15 +247,15 @@ PROFILES/peripheral.obj: C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/ha
 PROFILES/peripheral.obj: C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Projects/ble/ICall/Include/ICallBleAPIMSG.h
 
 C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Projects/ble/Profiles/Roles/CC26xx/peripheral.c: 
-C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/string.h: 
-C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/linkage.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/string.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/linkage.h: 
 C:/ti/xdctools_3_31_01_33_core/packages/xdc/std.h: 
-C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stdarg.h: 
-C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stddef.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdarg.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stddef.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/targets/arm/elf/std.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/targets/arm/elf/M3.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/targets/std.h: 
-C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stdint.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdint.h: 
 C:/ti/xdctools_3_31_01_33_core/packages/xdc/runtime/Error.h: 
 C:/ti/xdctools_3_31_01_33_core/packages/xdc/runtime/xdc.h: 
 C:/ti/xdctools_3_31_01_33_core/packages/xdc/runtime/Types.h: 
@@ -431,7 +431,7 @@ C:/ti/xdctools_3_31_01_33_core/packages/xdc/runtime/IModule.h:
 C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/sysbios/knl/Event__epilogue.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/sysbios/knl/Queue.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600/driverlib/ioc.h: 
-C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stdbool.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdbool.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600/inc/hw_types.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600/inc/hw_chip_def.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600/inc/hw_memmap.h: 
@@ -451,11 +451,11 @@ C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/hal/target/CC2650TIRTOS/hal
 C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/hal/target/CC2650TIRTOS/../_common/cc26xx/_hal_types.h: 
 C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/hal/include/hal_defs.h: 
 C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/osal/include/OSAL.h: 
-C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/limits.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/limits.h: 
 C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/osal/include/OSAL_Memory.h: 
 C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/osal/include/OSAL_Timers.h: 
 C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/icall/include/ICall.h: 
-C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stdlib.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdlib.h: 
 C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/ble/include/sm.h: 
 C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/ble/include/gatt.h: 
 C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/ble/include/att.h: 

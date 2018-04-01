@@ -40,10 +40,10 @@
 
 #include <xdc/runtime/Error.h>
 #include <ti/sysbios/family/arm/cc26xx/Power.h>
+
 #include <ti/sysbios/BIOS.h>
 #include <ti/sysbios/knl/Clock.h>
 #include <ti/sysbios/knl/Task.h>
-
 #include <ti/drivers/pin/PINCC26XX.h>
 #include <ti/drivers/I2C.h>
 #include "ICall.h"
@@ -78,14 +78,6 @@ void exceptionHandler()
 #define TASKSTACKSIZE       1024
 Task_Struct task0Struct;
 Char task0Stack[TASKSTACKSIZE];
-
-
-
-
-/*Clock 100ms*/
-
-
-
 /*
  *  ======== echoFxn ========
  *  Task for this function is created statically. See the project's .cfg file.
@@ -127,7 +119,6 @@ Void taskFxn(UArg arg0, UArg arg1)
         }
     }
 
-
     /* Deinitialized I2C */
     I2C_close(i2c);
 }
@@ -147,6 +138,7 @@ int main()
     Task_Params_init(&taskParams);
     taskParams.stackSize = TASKSTACKSIZE;
     taskParams.stack = &task0Stack;
+    taskParams.priority = 1;
     Task_construct(&task0Struct, (Task_FuncPtr)taskFxn, &taskParams, NULL);
 
 #ifndef POWER_SAVING
@@ -171,7 +163,7 @@ int main()
     HidEmuKbd_createTask();
 
     /* enable interrupts and start SYS/BIOS */
-    Uart_Print("SYS_start...\r\n");
+    //Uart_Print("SYS_start...\r\n");
     BIOS_start();
 
     return 0;

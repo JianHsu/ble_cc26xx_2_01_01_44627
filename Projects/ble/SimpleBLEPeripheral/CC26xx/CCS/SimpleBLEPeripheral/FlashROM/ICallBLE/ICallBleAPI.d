@@ -1,12 +1,12 @@
 # FIXED
 
 ICallBLE/ICallBleAPI.obj: C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Projects/ble/ICall/Application/ICallBleAPI.c
-ICallBLE/ICallBleAPI.obj: C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/string.h
-ICallBLE/ICallBleAPI.obj: C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/linkage.h
+ICallBLE/ICallBleAPI.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/string.h
+ICallBLE/ICallBleAPI.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/linkage.h
 ICallBLE/ICallBleAPI.obj: C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/icall/include/ICall.h
-ICallBLE/ICallBleAPI.obj: C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stdbool.h
-ICallBLE/ICallBleAPI.obj: C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stdint.h
-ICallBLE/ICallBleAPI.obj: C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stdlib.h
+ICallBLE/ICallBleAPI.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdbool.h
+ICallBLE/ICallBleAPI.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdint.h
+ICallBLE/ICallBleAPI.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdlib.h
 ICallBLE/ICallBleAPI.obj: C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/ble/include/gap.h
 ICallBLE/ICallBleAPI.obj: C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/ble/include/bcomdef.h
 ICallBLE/ICallBleAPI.obj: C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/osal/include/comdef.h
@@ -14,7 +14,7 @@ ICallBLE/ICallBleAPI.obj: C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/h
 ICallBLE/ICallBleAPI.obj: C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/hal/target/CC2650TIRTOS/../_common/cc26xx/_hal_types.h
 ICallBLE/ICallBleAPI.obj: C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/hal/include/hal_defs.h
 ICallBLE/ICallBleAPI.obj: C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/osal/include/OSAL.h
-ICallBLE/ICallBleAPI.obj: C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/limits.h
+ICallBLE/ICallBleAPI.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/limits.h
 ICallBLE/ICallBleAPI.obj: C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/osal/include/OSAL_Memory.h
 ICallBLE/ICallBleAPI.obj: C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/osal/include/OSAL_Timers.h
 ICallBLE/ICallBleAPI.obj: C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/ble/include/sm.h
@@ -64,12 +64,12 @@ ICallBLE/ICallBleAPI.obj: C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Projects/ble
 ICallBLE/ICallBleAPI.obj: C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Projects/ble/ICall/Include/bleDispatch.h
 
 C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Projects/ble/ICall/Application/ICallBleAPI.c: 
-C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/string.h: 
-C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/linkage.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/string.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/linkage.h: 
 C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/icall/include/ICall.h: 
-C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stdbool.h: 
-C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stdint.h: 
-C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stdlib.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdbool.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdint.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdlib.h: 
 C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/ble/include/gap.h: 
 C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/ble/include/bcomdef.h: 
 C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/osal/include/comdef.h: 
@@ -77,7 +77,7 @@ C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/hal/target/CC2650TIRTOS/hal
 C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/hal/target/CC2650TIRTOS/../_common/cc26xx/_hal_types.h: 
 C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/hal/include/hal_defs.h: 
 C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/osal/include/OSAL.h: 
-C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/limits.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/limits.h: 
 C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/osal/include/OSAL_Memory.h: 
 C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/osal/include/OSAL_Timers.h: 
 C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/ble/include/sm.h: 

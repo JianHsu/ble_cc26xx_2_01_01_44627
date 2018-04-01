@@ -419,10 +419,6 @@ void HidEmuKbd_init(void)
     Batt_SetParameter(BATT_PARAM_CRITICAL_LEVEL, sizeof (uint8_t), &critical);
   }
 
-  // Initialize unused MPU to sleep
-  //SensorI2C_open();
-  //SensorMpu9250_init();
-
   // Set up HID keyboard service
   HidKbM_AddService();
 
@@ -442,7 +438,7 @@ void HidEmuKbd_init(void)
   Clock_Params_init(&clockParams);
   clockParams.period = 0;
   clockParams.startFlag = TRUE;
-  clkHandle = Clock_create(clkFxn, 30000, &clockParams, NULL);
+  clkHandle = Clock_create(clkFxn, 50000, &clockParams, NULL);
 
 }
 
@@ -848,13 +844,16 @@ static uint8_t HidEmuKbd_enqueueMsg(uint16_t event, uint8_t state)
 static void clkFxn(UArg arg0)
 {
     PINCC26XX_setOutputValue(Board_GLED, PINCC26XX_getOutputValue(Board_GLED) ^ 1);
+    HidEmuKbd_enqueueMsg(2, 0);
+    Uart_Print("\n");
+    /*
     cnt_1s++;
     if (cnt_1s >= 10){
         cnt_1s = 0;
         Uart_Print("1s\r\n");
         HidEmuKbd_enqueueMsg(2, 0);
     }
-
+    */
     Clock_start(clkHandle);
 }
 /*********************************************************************

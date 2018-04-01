@@ -1,11 +1,11 @@
 # FIXED
 
 Drivers/UART/UARTCC26XX.obj: C:/ti/tirtos_simplelink_2_13_00_06/packages/ti/drivers/uart/UARTCC26XX.c
-Drivers/UART/UARTCC26XX.obj: C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stdint.h
+Drivers/UART/UARTCC26XX.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdint.h
 Drivers/UART/UARTCC26XX.obj: C:/ti/xdctools_3_31_01_33_core/packages/xdc/runtime/Error.h
 Drivers/UART/UARTCC26XX.obj: C:/ti/xdctools_3_31_01_33_core/packages/xdc/std.h
-Drivers/UART/UARTCC26XX.obj: C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stdarg.h
-Drivers/UART/UARTCC26XX.obj: C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stddef.h
+Drivers/UART/UARTCC26XX.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdarg.h
+Drivers/UART/UARTCC26XX.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stddef.h
 Drivers/UART/UARTCC26XX.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/targets/arm/elf/std.h
 Drivers/UART/UARTCC26XX.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/targets/arm/elf/M3.h
 Drivers/UART/UARTCC26XX.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/targets/std.h
@@ -191,9 +191,9 @@ Drivers/UART/UARTCC26XX.obj: C:/ti/xdctools_3_31_01_33_core/packages/xdc/runtime
 Drivers/UART/UARTCC26XX.obj: C:/ti/xdctools_3_31_01_33_core/packages/xdc/runtime/IModule.h
 Drivers/UART/UARTCC26XX.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/sysbios/family/arm/cc26xx/PowerCC2650.h
 Drivers/UART/UARTCC26XX.obj: C:/ti/tirtos_simplelink_2_13_00_06/packages/ti/drivers/uart/UARTCC26XX.h
-Drivers/UART/UARTCC26XX.obj: C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stdbool.h
+Drivers/UART/UARTCC26XX.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdbool.h
 Drivers/UART/UARTCC26XX.obj: C:/ti/tirtos_simplelink_2_13_00_06/packages/ti/drivers/UART.h
-Drivers/UART/UARTCC26XX.obj: C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stddef.h
+Drivers/UART/UARTCC26XX.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stddef.h
 Drivers/UART/UARTCC26XX.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/sysbios/family/arm/cc26xx/Power.h
 Drivers/UART/UARTCC26XX.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600/driverlib/uart.h
 Drivers/UART/UARTCC26XX.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600/inc/hw_types.h
@@ -212,13 +212,13 @@ Drivers/UART/UARTCC26XX.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_
 Drivers/UART/UARTCC26XX.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/sysbios/knl/Semaphore.h
 Drivers/UART/UARTCC26XX.obj: C:/ti/tirtos_simplelink_2_13_00_06/packages/ti/drivers/pin/PINCC26XX.h
 Drivers/UART/UARTCC26XX.obj: C:/ti/tirtos_simplelink_2_13_00_06/packages/ti/drivers/PIN.h
-Drivers/UART/UARTCC26XX.obj: C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stddef.h
+Drivers/UART/UARTCC26XX.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stddef.h
 Drivers/UART/UARTCC26XX.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600/driverlib/ioc.h
 Drivers/UART/UARTCC26XX.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600/inc/hw_ioc.h
 Drivers/UART/UARTCC26XX.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600/driverlib/gpio.h
 Drivers/UART/UARTCC26XX.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600/inc/hw_gpio.h
 Drivers/UART/UARTCC26XX.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/sysbios/family/arm/m3/Hwi.h
-Drivers/UART/UARTCC26XX.obj: C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stddef.h
+Drivers/UART/UARTCC26XX.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stddef.h
 Drivers/UART/UARTCC26XX.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600/driverlib/sys_ctrl.h
 Drivers/UART/UARTCC26XX.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600/inc/hw_sysctl.h
 Drivers/UART/UARTCC26XX.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600/inc/hw_prcm.h
@@ -247,11 +247,11 @@ Drivers/UART/UARTCC26XX.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxw
 Drivers/UART/UARTCC26XX.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600/inc/hw_vims.h
 
 C:/ti/tirtos_simplelink_2_13_00_06/packages/ti/drivers/uart/UARTCC26XX.c: 
-C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stdint.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdint.h: 
 C:/ti/xdctools_3_31_01_33_core/packages/xdc/runtime/Error.h: 
 C:/ti/xdctools_3_31_01_33_core/packages/xdc/std.h: 
-C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stdarg.h: 
-C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stddef.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdarg.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stddef.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/targets/arm/elf/std.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/targets/arm/elf/M3.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/targets/std.h: 
@@ -437,9 +437,9 @@ C:/ti/xdctools_3_31_01_33_core/packages/xdc/runtime/Types.h:
 C:/ti/xdctools_3_31_01_33_core/packages/xdc/runtime/IModule.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/sysbios/family/arm/cc26xx/PowerCC2650.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/packages/ti/drivers/uart/UARTCC26XX.h: 
-C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stdbool.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdbool.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/packages/ti/drivers/UART.h: 
-C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stddef.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stddef.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/sysbios/family/arm/cc26xx/Power.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600/driverlib/uart.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600/inc/hw_types.h: 
@@ -458,13 +458,13 @@ C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/sysbios/
 C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/sysbios/knl/Semaphore.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/packages/ti/drivers/pin/PINCC26XX.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/packages/ti/drivers/PIN.h: 
-C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stddef.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stddef.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600/driverlib/ioc.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600/inc/hw_ioc.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600/driverlib/gpio.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600/inc/hw_gpio.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/sysbios/family/arm/m3/Hwi.h: 
-C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stddef.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stddef.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600/driverlib/sys_ctrl.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600/inc/hw_sysctl.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600/inc/hw_prcm.h: 

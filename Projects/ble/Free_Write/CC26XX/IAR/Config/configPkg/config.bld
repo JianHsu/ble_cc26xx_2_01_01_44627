@@ -1,0 +1,27 @@
+/* THIS IS A GENERATED FILE -- DO NOT EDIT */
+
+var target;    /* the target used for this build */
+
+/* configuro was passed the target's name explicitly */
+try {
+    target = xdc.module('iar.targets.arm.M3');
+}
+catch (e) {
+    throw new Error("Can't find the target named '" + 'iar.targets.arm.M3'
+                    + "' along the path '" + environment["xdc.path"]
+                    + "': please check the spelling of the target's name and that it exists along this path.");
+}
+if (!(target instanceof xdc.module("xdc.bld.ITarget").Module)) {
+    throw new Error("The module named 'iar.targets.arm.M3' exists but it's not a target: please check the spelling of the target's name");
+}
+
+/* configuro was passed compiler options explicitly */
+target.ccOpts.prefix = unescape("%20%20-D%20POWER_SAVING%20%20%20-D%20GATT_TI_UUID_128_BIT%20%20%20-D%20FEATURE_REGISTER_SERVICE%20%20%20-D%20USE_ICALL%20%20%20-D%20TI_DRIVERS_PIN_INCLUDED%20%20%20-D%20TI_DRIVERS_I2C_INCLUDED%20%20%20-D%20TI_DRIVERS_SPI_INCLUDED%20%20%20-D%20TI_DRIVERS_UART_INCLUDED%20%20%20-D%20HEAPMGR_SIZE%3D2872%20%20%20-D%20ICALL_MAX_NUM_TASKS%3D8%20%20%20-D%20ICALL_MAX_NUM_ENTITIES%3D11%20%20%20-D%20CC26XXWARE%20%20%20-D%20CC26XX%20%20%20-D%20xdc_runtime_Assert_DISABLE_ALL%20%20%20-D%20xdc_runtime_Log_DISABLE_ALL%20%20%20-I%20C%3A/ti/simplelink/ble_cc26xx_2_01_01_44627/Projects/ble/Free_Write/CC26XX/IAR/Application/FreeWrite/%20%20%20-I%20C%3A/ti/simplelink/ble_cc26xx_2_01_01_44627/Projects/ble/Free_Write/CC26XX/IAR/Application/FreeWrite/../../../Source/Application/Board_patch/Board/%20%20%20-I%20C%3A/ti/simplelink/ble_cc26xx_2_01_01_44627/Projects/ble/Free_Write/CC26XX/IAR/Application/FreeWrite/../../../Source/Application/Board_patch/interfaces/%20%20%20-I%20C%3A/ti/simplelink/ble_cc26xx_2_01_01_44627/Projects/ble/Free_Write/CC26XX/IAR/Application/FreeWrite/../../../Source/Application/Board_patch/devices/%20%20%20-I%20C%3A/ti/simplelink/ble_cc26xx_2_01_01_44627/Projects/ble/Include/%20%20%20-I%20C%3A/ti/simplelink/ble_cc26xx_2_01_01_44627/Projects/ble/ICall/Include/%20%20%20-I%20C%3A/ti/simplelink/ble_cc26xx_2_01_01_44627/Projects/ble/Profiles/Roles/CC26xx/%20%20%20-I%20C%3A/ti/simplelink/ble_cc26xx_2_01_01_44627/Projects/ble/Profiles/Roles/%20%20%20-I%20C%3A/ti/simplelink/ble_cc26xx_2_01_01_44627/Projects/ble/Profiles/Keys/%20%20%20-I%20C%3A/ti/simplelink/ble_cc26xx_2_01_01_44627/Projects/ble/Profiles/DevInfo/%20%20%20-I%20C%3A/ti/simplelink/ble_cc26xx_2_01_01_44627/Projects/ble/Profiles/SensorProfile/cc26xx/%20%20%20-I%20C%3A/ti/simplelink/ble_cc26xx_2_01_01_44627/Projects/ble/Profiles/OAD/cc26xxST/%20%20%20-I%20C%3A/ti/simplelink/ble_cc26xx_2_01_01_44627/Projects/ble/common/cc26xx/%20%20%20-I%20C%3A/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/applib/heap/%20%20%20-I%20C%3A/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/ble/hci/%20%20%20-I%20C%3A/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/ble/controller/CC26xx/include/%20%20%20-I%20C%3A/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/ble/host/%20%20%20-I%20C%3A/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/hal/target/CC2650TIRTOS/%20%20%20-I%20C%3A/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/hal/target/_common/cc26xx/%20%20%20-I%20C%3A/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/hal/include/%20%20%20-I%20C%3A/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/osal/include/%20%20%20-I%20C%3A/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/services/sdata/%20%20%20-I%20C%3A/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/services/saddr/%20%20%20-I%20C%3A/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/icall/include/%20%20%20-I%20C%3A/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/icall/ports/tirtos/%20%20%20-I%20C%3A/ti/simplelink/ble_cc26xx_2_01_01_44627/Components/ble/include/%20%20%20-I%20C%3A/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/tidrivers_cc13xx_cc26xx_2_21_00_04/packages/%20%20%20-I%20C%3A/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/cc26xxware_2_24_03_17272/%20%20%20") + target.ccOpts.prefix;
+
+/* configuro was passed linker options explicitly */
+target.lnkOpts.prefix = unescape("-o%20C%3A/ti/simplelink/ble_cc26xx_2_01_01_44627/Projects/ble/Free_Write/CC26XX/IAR/Application/FreeWrite/Debug/Exe/FreeWrite.out%20--map%20C%3A/ti/simplelink/ble_cc26xx_2_01_01_44627/Projects/ble/Free_Write/CC26XX/IAR/Application/FreeWrite/Debug/List/FreeWrite.map%20--config%20C%3A/ti/simplelink/ble_cc26xx_2_01_01_44627/Projects/ble/Free_Write/CC26XX/IAR/Application/FreeWrite/cc26xx_ble_app.icf%20--keep%20__vector_table%20-f%20C%3A/ti/simplelink/ble_cc26xx_2_01_01_44627/Projects/ble/Free_Write/CC26XX/IAR/Application/FreeWrite/configPkg/linker.cmd%20-f%20C%3A/ti/simplelink/ble_cc26xx_2_01_01_44627/Projects/ble/Free_Write/CC26XX/IAR/Application/FreeWrite/../../Config/IAR-Boundary.xcl%20--semihosting%20C%3A/ti/tirtos_cc13xx_cc26xx_2_21_00_06/products/cc26xxware_2_24_03_17272/driverlib/bin/iar/driverlib.lib%20--entry%20__iar_program_start%20--vfe%20") + target.lnkOpts.prefix;
+
+/* configuro was passed the target's rootDir explicitly */
+target.rootDir = 'C:/Program Files (x86)/IAR Systems/Embedded Workbench 7.2/arm';
+
+Build.targets = [target];

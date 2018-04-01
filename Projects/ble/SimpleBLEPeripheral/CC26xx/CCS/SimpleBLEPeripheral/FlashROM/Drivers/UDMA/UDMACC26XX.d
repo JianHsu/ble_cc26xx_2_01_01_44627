@@ -1,11 +1,11 @@
 # FIXED
 
 Drivers/UDMA/UDMACC26XX.obj: C:/ti/tirtos_simplelink_2_13_00_06/packages/ti/drivers/dma/UDMACC26XX.c
-Drivers/UDMA/UDMACC26XX.obj: C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stdint.h
+Drivers/UDMA/UDMACC26XX.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdint.h
 Drivers/UDMA/UDMACC26XX.obj: C:/ti/xdctools_3_31_01_33_core/packages/xdc/runtime/Assert.h
 Drivers/UDMA/UDMACC26XX.obj: C:/ti/xdctools_3_31_01_33_core/packages/xdc/std.h
-Drivers/UDMA/UDMACC26XX.obj: C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stdarg.h
-Drivers/UDMA/UDMACC26XX.obj: C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stddef.h
+Drivers/UDMA/UDMACC26XX.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdarg.h
+Drivers/UDMA/UDMACC26XX.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stddef.h
 Drivers/UDMA/UDMACC26XX.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/targets/arm/elf/std.h
 Drivers/UDMA/UDMACC26XX.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/targets/arm/elf/M3.h
 Drivers/UDMA/UDMACC26XX.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/targets/std.h
@@ -125,7 +125,7 @@ Drivers/UDMA/UDMACC26XX.obj: C:/ti/xdctools_3_31_01_33_core/packages/xdc/runtime
 Drivers/UDMA/UDMACC26XX.obj: C:/ti/xdctools_3_31_01_33_core/packages/xdc/runtime/IModule.h
 Drivers/UDMA/UDMACC26XX.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/sysbios/family/arm/m3/Hwi__epilogue.h
 Drivers/UDMA/UDMACC26XX.obj: C:/ti/tirtos_simplelink_2_13_00_06/packages/ti/drivers/dma/UDMACC26XX.h
-Drivers/UDMA/UDMACC26XX.obj: C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stdbool.h
+Drivers/UDMA/UDMACC26XX.obj: C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdbool.h
 Drivers/UDMA/UDMACC26XX.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600/driverlib/udma.h
 Drivers/UDMA/UDMACC26XX.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600/inc/hw_types.h
 Drivers/UDMA/UDMACC26XX.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600/inc/hw_chip_def.h
@@ -181,11 +181,11 @@ Drivers/UDMA/UDMACC26XX.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxw
 Drivers/UDMA/UDMACC26XX.obj: C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600/inc/hw_aon_rtc.h
 
 C:/ti/tirtos_simplelink_2_13_00_06/packages/ti/drivers/dma/UDMACC26XX.c: 
-C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stdint.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdint.h: 
 C:/ti/xdctools_3_31_01_33_core/packages/xdc/runtime/Assert.h: 
 C:/ti/xdctools_3_31_01_33_core/packages/xdc/std.h: 
-C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stdarg.h: 
-C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stddef.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdarg.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stddef.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/targets/arm/elf/std.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/targets/arm/elf/M3.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/targets/std.h: 
@@ -305,7 +305,7 @@ C:/ti/xdctools_3_31_01_33_core/packages/xdc/runtime/Error.h:
 C:/ti/xdctools_3_31_01_33_core/packages/xdc/runtime/IModule.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/sysbios/family/arm/m3/Hwi__epilogue.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/packages/ti/drivers/dma/UDMACC26XX.h: 
-C:/ti/ccsv6/tools/compiler/arm_15.12.3.LTS/include/stdbool.h: 
+C:/ti/ccsv7/tools/compiler/ti-cgt-arm_16.9.6.LTS/include/stdbool.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600/driverlib/udma.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600/inc/hw_types.h: 
 C:/ti/tirtos_simplelink_2_13_00_06/products/cc26xxware_2_21_01_15600/inc/hw_chip_def.h: 

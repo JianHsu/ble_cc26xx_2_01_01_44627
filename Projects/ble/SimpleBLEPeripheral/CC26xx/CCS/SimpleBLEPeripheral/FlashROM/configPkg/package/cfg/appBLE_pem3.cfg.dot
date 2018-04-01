@@ -418,6 +418,6 @@ digraph configuration {
     ti_sysbios_xdcruntime__bot -> ti_targets_arm_elf_M3__1_0_5__2_2 [ltail=cluster38];
     ti_targets_arm_elf_M3__1_0_5__2_2 [shape=record,label="ti.targets.arm.elf.M3|1,0,5.2,2",style=filled, fillcolor=lightgrey];
     ti_sysbios_utils__bot -> ti_targets_arm_elf_M3__1_0_5__2_2 [ltail=cluster39];
-    ti_targets_arm_elf_M3__1_0_15__12_3 [shape=record,label="ti.targets.arm.elf.M3|1,0,15.12,3",style=filled, fillcolor=lightgrey];
-    configPkg__top -> ti_targets_arm_elf_M3__1_0_15__12_3 [ltail=cluster40];
+    ti_targets_arm_elf_M3__1_0_16__9_6 [shape=record,label="ti.targets.arm.elf.M3|1,0,16.9,6",style=filled, fillcolor=lightgrey];
+    configPkg__top -> ti_targets_arm_elf_M3__1_0_16__9_6 [ltail=cluster40];
 }
