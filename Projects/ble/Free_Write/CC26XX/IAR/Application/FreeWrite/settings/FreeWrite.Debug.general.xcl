@@ -1,14 +1,14 @@
-"C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.0\arm\bin\armproc.dll" 
+"C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.2\arm\bin\armproc.dll" 
 
-"C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.0\arm\bin\armxds2.dll" 
+"C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.2\arm\bin\armxds2.dll" 
 
 "C:\ti\simplelink\ble_cc26xx_2_01_01_44627\Projects\ble\Free_Write\CC26XX\IAR\Application\FreeWrite\Debug\Exe\FreeWrite.out" 
 
---plugin "C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.0\arm\bin\armbat.dll" 
+--plugin "C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.2\arm\bin\armbat.dll" 
 
---device_macro "C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.0\arm\config\debugger\TexasInstruments\CC26x0.dmac" 
+--device_macro "C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.2\arm\config\debugger\TexasInstruments\CC26xx.dmac" 
 
---flash_loader "C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.0\arm\config\flashloader\TexasInstruments\FlashCC26x0F128RAM20.board" 
+--flash_loader "C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.2\arm\config\flashloader\TexasInstruments\FlashCC26xxF128RAM20.board" 
 
 
 

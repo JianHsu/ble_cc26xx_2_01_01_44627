@@ -1,0 +1,106 @@
+warning: xdc.cfg.Program: "C:/ti/tirtos_simplelink_2_13_00_06/products/bios_6_42_00_08/packages/ti/sysbios/hal/Hwi.xs", line 181: xdc.cfg.Program stack: For IAR targets, Program.stack is ignored. The C and Hwi stack sizes are determined by the size of the CSTACK section definition within the linker command file.
+Fatal error[LMS001]: License check failed. Use the IAR License Manager to
+          resolve the problem.
+No license found. [LicenseCheck:2.14.2.842, RMS:8.5.2.0015,
+          Feature:ARM.EW.COMPILER, Version:1.06]
+Fatal error detected, aborting.
+Fatal error[LMS001]: License check failed. Use the IAR License Manager to
+          resolve the problem.
+No license found. [LicenseCheck:2.14.2.842, RMS:8.5.2.0015,
+          Feature:ARM.EW.COMPILER, Version:1.06]
+Fatal error detected, aborting.
+Fatal error[LMS001]: License check failed. Use the IAR License Manager to
+          resolve the problem.
+No license found. [LicenseCheck:2.14.2.842, RMS:8.5.2.0015,
+          Feature:ARM.EW.COMPILER, Version:1.06]
+Fatal error detected, aborting.
+Fatal error[LMS001]: License check failed. Use the IAR License Manager to
+          resolve the problem.
+No license found. [LicenseCheck:2.14.2.842, RMS:8.5.2.0015,
+          Feature:ARM.EW.COMPILER, Version:1.06]
+Fatal error detected, aborting.
+Fatal error[LMS001]: License check failed. Use the IAR License Manager to
+          resolve the problem.
+No license found. [LicenseCheck:2.14.2.842, RMS:8.5.2.0015,
+          Feature:ARM.EW.COMPILER, Version:1.06]
+Fatal error detected, aborting.
+Fatal error[LMS001]: License check failed. Use the IAR License Manager to
+          resolve the problem.
+No license found. [LicenseCheck:2.14.2.842, RMS:8.5.2.0015,
+          Feature:ARM.EW.COMPILER, Version:1.06]
+Fatal error detected, aborting.
+Fatal error[LMS001]: License check failed. Use the IAR License Manager to
+          resolve the problem.
+No license found. [LicenseCheck:2.14.2.842, RMS:8.5.2.0015,
+          Feature:ARM.EW.COMPILER, Version:1.06]
+Fatal error detected, aborting.
+Fatal error[LMS001]: License check failed. Use the IAR License Manager to
+          resolve the problem.
+No license found. [LicenseCheck:2.14.2.842, RMS:8.5.2.0015,
+          Feature:ARM.EW.COMPILER, Version:1.06]
+Fatal error detected, aborting.
+Fatal error[LMS001]: License check failed. Use the IAR License Manager to
+          resolve the problem.
+No license found. [LicenseCheck:2.14.2.842, RMS:8.5.2.0015,
+          Feature:ARM.EW.COMPILER, Version:1.06]
+Fatal error detected, aborting.
+Fatal error[LMS001]: License check failed. Use the IAR License Manager to
+          resolve the problem.
+No license found. [LicenseCheck:2.14.2.842, RMS:8.5.2.0015,
+          Feature:ARM.EW.COMPILER, Version:1.06]
+Fatal error detected, aborting.
+Fatal error[LMS001]: License check failed. Use the IAR License Manager to
+          resolve the problem.
+No license found. [LicenseCheck:2.14.2.842, RMS:8.5.2.0015,
+          Feature:ARM.EW.COMPILER, Version:1.06]
+Fatal error detected, aborting.
+gmake[1]: *** [mangled_ti.sysbios.BIOS_config_lib.pp] Error 2
+gmake[1]: *** Waiting for unfinished jobs....
+gmake[1]: *** [mangled_ti.sysbios.BIOS_RtsGateProxy_config_lib.pp] Error 2
+gmake[1]: *** [mangled_ti.sysbios.knl.Clock_config_lib.pp] Error 2
+gmake[1]: *** [mangled_ti.sysbios.knl.Mailbox_config_lib.pp] Error 2
+gmake[1]: *** [mangled_ti.sysbios.knl.Queue_config_lib.pp] Error 2
+gmake[1]: *** [mangled_ti.sysbios.knl.Semaphore_config_lib.pp] Error 2
+gmake[1]: *** [mangled_ti.sysbios.knl.Swi_config_lib.pp] Error 2
+gmake[1]: *** [mangled_ti.sysbios.knl.Task_config_lib.pp] Error 2
+gmake[1]: *** [mangled_ti.sysbios.knl.Clock_TimerProxy_config_lib.pp] Error 2
+gmake[1]: *** [mangled_ti.sysbios.knl.Task_SupportProxy_config_lib.pp] Error 2
+Fatal error[LMS001]: License check failed. Use the IAR License Manager to
+          resolve the problem.
+No license found. [LicenseCheck:2.14.2.842, RMS:8.5.2.0015,
+          Feature:ARM.EW.COMPILER, Version:1.06]
+Fatal error detected, aborting.
+gmake[1]: *** [mangled_ti.sysbios.family.arm.m3.TaskSupport_config_lib.pp] Error 2
+gmake[1]: *** [mangled_ti.sysbios.family.arm.m3.Hwi_config_lib.pp] Error 2
+Fatal error[LMS001]: License check failed. Use the IAR License Manager to
+          resolve the problem.
+No license found. [LicenseCheck:2.14.2.842, RMS:8.5.2.0015,
+          Feature:ARM.EW.COMPILER, Version:1.06]
+Fatal error detected, aborting.
+Fatal error[LMS001]: License check failed. Use the IAR License Manager to
+          resolve the problem.
+No license found. [LicenseCheck:2.14.2.842, RMS:8.5.2.0015,
+          Feature:ARM.EW.COMPILER, Version:1.06]
+Fatal error detected, aborting.
+Fatal error[LMS001]: License check failed. Use the IAR License Manager to
+          resolve the problem.
+No license found. [LicenseCheck:2.14.2.842, RMS:8.5.2.0015,
+          Feature:ARM.EW.COMPILER, Version:1.06]
+Fatal error detected, aborting.
+gmake[1]: *** [mangled_ti.sysbios.family.arm.cc26xx.Timer_config_lib.pp] Error 2
+gmake[1]: *** [mangled_ti.sysbios.family.arm.cc26xx.TimestampProvider_config_lib.pp] Error 2
+gmake[1]: *** [mangled_ti.sysbios.hal.Hwi_config_lib.pp] Error 2
+Fatal error[LMS001]: License check failed. Use the IAR License Manager to
+          resolve the problem.
+No license found. [LicenseCheck:2.14.2.842, RMS:8.5.2.0015,
+          Feature:ARM.EW.COMPILER, Version:1.06]
+Fatal error detected, aborting.
+gmake[1]: *** [mangled_ti.sysbios.hal.Hwi_HwiProxy_config_lib.pp] Error 2
+gmake: *** [C:/ti/simplelink/ble_cc26xx_2_01_01_44627/Projects/ble/Free_Write/CC26XX/IAR/Config/src/sysbios/sysbios.arm3] Error 2
+error: xdc.cfg.SourceDir: "C:/ti/xdctools_3_31_01_33_core/packages/xdc/cfg/SourceDir.xs", line 209: xdc.cfg.SourceDir : Build of generated source libraries failed: exit status = 2:
+
+js: "C:/ti/xdctools_3_31_01_33_core/packages/xdc/cfg/Main.xs", line 160: Error: Configuration failed!
+xdctools_3_31_01_33_core\gmake.exe: *** [package/cfg/appBLE_prm3.xdl] Error 1
+xdctools_3_31_01_33_core\gmake.exe: *** Deleting file `package/cfg/appBLE_prm3.xdl'
+xdctools_3_31_01_33_core\gmake.exe: *** [package/cfg/appBLE_prm3.xdl] Deleting file `package/cfg/appBLE_prm3.h'
+xdctools_3_31_01_33_core\gmake.exe: *** [package/cfg/appBLE_prm3.xdl] Deleting file `package/cfg/appBLE_prm3.c'

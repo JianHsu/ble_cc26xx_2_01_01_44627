@@ -44,11 +44,12 @@
  * INCLUDES
  */
 
+#include <xdc/runtime/System.h>
 #include <ti/sysbios/knl/Task.h>
 #include <ti/sysbios/knl/Clock.h>
 #include <ti/sysbios/knl/Semaphore.h>
 #include <ti/sysbios/knl/Queue.h>
-#include <ti/drivers/pin/PINCC26XX.h>
+
 
 #include "gatt.h"
 #include "gapgattserver.h"
@@ -68,11 +69,9 @@
 #include "util.h"
 #include "board_key.h"
 #include "Board.h"
+#include "AHRS.h"
 
 #include "hidemukbd.h"
-
-#include "myuart.h"
-
 /*********************************************************************
  * MACROS
  */
@@ -256,8 +255,7 @@ static hidDevCfg_t hidEmuKbdCfg =
 static uint8_t hidBootMouseEnabled = TRUE;
 //static uint8_t hidBootMouseEnabled = FALSE;
 //jian end
-Clock_Handle clkHandle;
-uint8_t cnt_1s = 0;
+
 /*********************************************************************
  * LOCAL FUNCTIONS
  */
@@ -281,8 +279,6 @@ static uint8_t HidEmuKbd_receiveReport(uint8_t len, uint8_t *pData);
 static uint8_t HidEmuKbd_reportCB(uint8_t id, uint8_t type, uint16_t uuid,
                                   uint8_t oper, uint16_t *pLen, uint8_t *pData);
 static void HidEmuKbd_hidEventCB(uint8_t evt);
-
-static void clkFxn(UArg arg0);
 /*********************************************************************
  * PROFILE CALLBACKS
  */
@@ -428,18 +424,10 @@ void HidEmuKbd_init(void)
   // Start the GAP Role and Register the Bond Manager.
   HidDev_StartDevice();
   
-
   // Initialize keys on SmartRF06EB.
   Board_initKeys(HidEmuKbd_keyPressHandler);
 
-  /*Timer*/
-  Clock_Params clockParams;
-
-  Clock_Params_init(&clockParams);
-  clockParams.period = 0;
-  clockParams.startFlag = TRUE;
-  clkHandle = Clock_create(clkFxn, 50000, &clockParams, NULL);
-
+  //AHRS_init();
 }
 
 /*********************************************************************
@@ -487,6 +475,8 @@ void HidEmuKbd_taskFxn(UArg a0, UArg a1)
           ICall_freeMsg(pMsg);
         }
       }
+
+
 
       // If RTOS queue is not empty, process app message.
       while (!Queue_empty(appMsgQueue))
@@ -841,20 +831,5 @@ static uint8_t HidEmuKbd_enqueueMsg(uint16_t event, uint8_t state)
   return FALSE;
 }
 
-static void clkFxn(UArg arg0)
-{
-    PINCC26XX_setOutputValue(Board_GLED, PINCC26XX_getOutputValue(Board_GLED) ^ 1);
-    HidEmuKbd_enqueueMsg(2, 0);
-    Uart_Print("\n");
-    /*
-    cnt_1s++;
-    if (cnt_1s >= 10){
-        cnt_1s = 0;
-        Uart_Print("1s\r\n");
-        HidEmuKbd_enqueueMsg(2, 0);
-    }
-    */
-    Clock_start(clkHandle);
-}
 /*********************************************************************
 *********************************************************************/
