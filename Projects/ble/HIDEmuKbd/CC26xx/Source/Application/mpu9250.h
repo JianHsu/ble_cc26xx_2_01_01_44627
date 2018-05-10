@@ -61,12 +61,14 @@ void MPU9250SelfTest(float* destination);
 void calibrateMPU9250(float* dest1, float* dest2);
 void initMPU9250(void);
 void initAK8963(float* destination);
+void magcalMPU9250(float * dest1, float * dest2);
 void readAccelData(int16_t* destination);
 void readGyroData(int16_t* destination);
 void readMagData(int16_t* destination);
 float getAres(int16_t rawData);
 float getGres(int16_t rawData);
 float getMres(int16_t rawData);
+bool GetMpuIntStatus(void);
 void AHRS_loop(void);
 /*********************************************************************
  * FUNCTIONS

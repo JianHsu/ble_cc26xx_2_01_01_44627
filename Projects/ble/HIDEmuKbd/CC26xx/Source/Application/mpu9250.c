@@ -289,16 +289,16 @@ float getGres(int16_t rawData) {
         // 250 DPS (00), 500 DPS (01), 1000 DPS (10), and 2000 DPS  (11).
         // Here's a bit of an algorith to calculate DPS/(ADC tick) based on that 2-bit value:
         case GFS_250DPS:
-            v = (rawData * 1.0) / (32768/250);
+            v = (rawData * 1.0) * 250 / 32768;
             break;
         case GFS_500DPS:
-            v = (rawData * 1.0) / (32768/500);
+            v = (rawData * 1.0) * 500 / 32768;
             break;
         case GFS_1000DPS:
-            v = (rawData * 1.0) / (32768/1000);
+            v = (rawData * 1.0) * 1000 / 32768;
             break;
         case GFS_2000DPS:
-            v = (rawData * 1.0) / (32768/2000);
+            v = (rawData * 1.0) * 2000 / 32768;
             break;
     }
     return v;
@@ -313,16 +313,16 @@ float getAres(int16_t rawData) {
         // 2 Gs (00), 4 Gs (01), 8 Gs (10), and 16 Gs  (11).
         // Here's a bit of an algorith to calculate DPS/(ADC tick) based on that 2-bit value:
         case AFS_2G:
-            v = (rawData * 1.0) / (32768/2);
+            v = (rawData * 1.0) * 2 / 32768;
             break;
         case AFS_4G:
-            v = (rawData * 1.0) / (32768/4);
+            v = (rawData * 1.0) * 4 / 32768;
             break;
         case AFS_8G:
-            v = (rawData * 1.0) / (32768/8);
+            v = (rawData * 1.0) * 8 / 32768;
             break;
         case AFS_16G:
-            v = (rawData * 1.0) / (32768/16);
+            v = (rawData * 1.0) * 16 / 32768;
             break;
     }
     return v;
@@ -395,7 +395,53 @@ void initAK8963(float * destination)
     DELAY_MS(50);
 }
 
+void magcalMPU9250(float * dest1, float * dest2) {
+    uint16_t ii = 0, jj=0, sample_count = 0;
+    int32_t mag_bias[3] = {0, 0, 0};
+    int16_t mag_max[3] = {0x8000, 0x8000, 0x8000}, mag_min[3] = {0x7FFF, 0x7FFF, 0x7FFF}, mag_temp[3] = {0, 0, 0};
 
+    System_printf("Mag Calibration: Wave device in a figure eight until done!");
+    DELAY_MS(1000);
+
+    if(Mmode == 0x02) sample_count = 128;  // at 8 Hz ODR, new mag data is available every 125 ms
+    if(Mmode == 0x06) sample_count = 1500;  // at 100 Hz ODR, new mag data is available every 10 ms
+
+    for(ii = 0; ii < sample_count; ii++) {
+        readMagData(mag_temp);  // Read the mag data
+        for (jj = 0; jj < 3; jj++) {
+            if(mag_temp[jj] > mag_max[jj]) mag_max[jj] = mag_temp[jj];
+            if(mag_temp[jj] < mag_min[jj]) mag_min[jj] = mag_temp[jj];
+        }
+        if(Mmode == 0x02) DELAY_MS(135);  // at 8 Hz ODR, new mag data is available every 125 ms
+        if(Mmode == 0x06) DELAY_MS(12);  // at 100 Hz ODR, new mag data is available every 10 ms
+    }
+
+    System_printf("mag x min/max:%d, %d\r\n", mag_max[0], mag_min[0]);
+    System_printf("mag y min/max:%d, %d\r\n", mag_max[1], mag_min[1]);
+    System_printf("mag z min/max:%d, %d\r\n", mag_max[2], mag_min[2]);
+
+    // Get hard iron correction
+    mag_bias[0]  = (mag_max[0] + mag_min[0])/2;  // get average x mag bias in counts
+    mag_bias[1]  = (mag_max[1] + mag_min[1])/2;  // get average y mag bias in counts
+    mag_bias[2]  = (mag_max[2] + mag_min[2])/2;  // get average z mag bias in counts
+
+    dest1[0] = getMres(mag_bias[0]) * dest2[0];
+    dest1[1] = getMres(mag_bias[1]) * dest2[1];
+    dest1[2] = getMres(mag_bias[2]) * dest2[2];
+    /*
+    // Get soft iron correction estimate
+    mag_scale[0]  = (mag_max[0] ¡V mag_min[0])/2;  // get average x axis max chord length in counts
+    mag_scale[1]  = (mag_max[1] ¡V mag_min[1])/2;  // get average y axis max chord length in counts
+    mag_scale[2]  = (mag_max[2] ¡V mag_min[2])/2;  // get average z axis max chord length in counts
+
+    float avg_rad = mag_scale[0] + mag_scale[1] + mag_scale[2];
+    avg_rad /= 3.0;
+    dest2[0] = avg_rad/((float)mag_scale[0]);
+    dest2[1] = avg_rad/((float)mag_scale[1]);
+    dest2[2] = avg_rad/((float)mag_scale[2]);
+    */
+    System_printf("Mag bias:%f, %f, %f\r\n", dest1[0], dest1[1], dest1[2]);
+}
 void initMPU9250(void)
 {
     uint8_t c;
@@ -423,7 +469,7 @@ void initMPU9250(void)
     // Range selects FS_SEL and GFS_SEL are 0 - 3, so 2-bit values are left-shifted into positions 4:3
     SensorI2C_readReg(MPU9250_ADDRESS, GYRO_CONFIG, &c, 1); // get current GYRO_CONFIG register value
     // c = c & ~0xE0; // Clear self-test bits [7:5]
-    c = c & ~0x03; // Clear Fchoice bits [1:0]
+    c = c & ~0x02; // Clear Fchoice bits [1:0]
     c = c & ~0x18; // Clear GFS bits [4:3]
     c = c | Gscale << 3; // Set full scale range for the gyro
     // c =| 0x00; // Set Fchoice for the gyro to 11 by writing its inverse to bits 1:0 of GYRO_CONFIG
@@ -490,8 +536,8 @@ void calibrateMPU9250(float * dest1, float * dest2)
     SensorI2C_writeReg(MPU9250_ADDRESS, GYRO_CONFIG, 0x00);  // Set gyro full-scale to 250 degrees per second, maximum sensitivity
     SensorI2C_writeReg(MPU9250_ADDRESS, ACCEL_CONFIG, 0x00); // Set accelerometer full-scale to 2 g, maximum sensitivity
 
-    uint16_t  gyrosensitivity  = 131;   // = 131 LSB/degrees/sec
-    uint16_t  accelsensitivity = 16384;  // = 16384 LSB/g
+    float  gyrosensitivity  = 1.0 / getGres(1);   // = 131 LSB/degrees/sec
+    float  accelsensitivity = 1.0 / getAres(1);  // = 16384 LSB/g
 
     // Configure FIFO to capture accelerometer and gyro data for bias calculation
     SensorI2C_writeReg(MPU9250_ADDRESS, USER_CTRL, 0x40);   // Enable FIFO
@@ -591,6 +637,7 @@ void calibrateMPU9250(float * dest1, float * dest2)
     // Apparently this is not working for the acceleration biases in the MPU-9250
     // Are we handling the temperature correction bit properly?
     // Push accelerometer biases to hardware registers
+
     SensorI2C_writeReg(MPU9250_ADDRESS, XA_OFFSET_H, data[0]);
     SensorI2C_writeReg(MPU9250_ADDRESS, XA_OFFSET_L, data[1]);
     SensorI2C_writeReg(MPU9250_ADDRESS, YA_OFFSET_H, data[2]);
@@ -617,9 +664,9 @@ void MPU9250SelfTest(float * destination) // Should return percent deviation fro
 
     SensorI2C_writeReg(MPU9250_ADDRESS, SMPLRT_DIV, 0x00);    // Set gyro sample rate to 1 kHz
     SensorI2C_writeReg(MPU9250_ADDRESS, CONFIG, 0x02);        // Set gyro sample rate to 1 kHz and DLPF to 92 Hz
-    SensorI2C_writeReg(MPU9250_ADDRESS, GYRO_CONFIG, FS<<3);  // Set full scale range for the gyro to 250 dps
+    SensorI2C_writeReg(MPU9250_ADDRESS, GYRO_CONFIG, 1<<FS);  // Set full scale range for the gyro to 250 dps
     SensorI2C_writeReg(MPU9250_ADDRESS, ACCEL_CONFIG2, 0x02); // Set accelerometer rate to 1 kHz and bandwidth to 92 Hz
-    SensorI2C_writeReg(MPU9250_ADDRESS, ACCEL_CONFIG, FS<<3); // Set full scale range for the accelerometer to 2 g
+    SensorI2C_writeReg(MPU9250_ADDRESS, ACCEL_CONFIG, 1<<FS); // Set full scale range for the accelerometer to 2 g
 
     for(ii = 0; ii < 200; ii++) {  // get average current values of gyro and acclerometer
 
@@ -683,10 +730,17 @@ void MPU9250SelfTest(float * destination) // Should return percent deviation fro
     // Report results as a ratio of (STR - FT)/FT; the change from Factory Trim of the Self-Test Response
     // To get percent, must multiply by 100
     for (ii = 0; ii < 3; ii++) {
-        destination[ii]   = 100.0*((float)(aSTAvg[ii] - aAvg[ii]))/factoryTrim[ii] - 100.;   // Report percent differences
-        destination[ii+3] = 100.0*((float)(gSTAvg[ii] - gAvg[ii]))/factoryTrim[ii+3] - 100.; // Report percent differences
+        destination[ii]   = 100.0*((float)(aSTAvg[ii] - aAvg[ii]))/factoryTrim[ii];   // Report percent differences
+        destination[ii+3] = 100.0*((float)(gSTAvg[ii] - gAvg[ii]))/factoryTrim[ii+3]; // Report percent differences
     }
+}
 
+bool GetMpuIntStatus(void)
+{
+    uint8_t val;
+    SensorI2C_readReg(MPU9250_ADDRESS, INT_STATUS, &val, 1);
+
+    return val & 0x01;
 }
 /*
 void MadgwickQuaternionUpdate(float ax, float ay, float az, float gx, float gy, float gz, float mx, float my, float mz)

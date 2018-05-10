@@ -89,6 +89,9 @@ float gyroBias[3] = {0, 0, 0}, accelBias[3] = {0, 0, 0};      // Bias correction
 int16_t accelCount[3], gyroCount[3], magCount[3];  // Stores the 16-bit signed accelerometer sensor output
 float   SelfTest[6];    // holds results of gyro and accelerometer self test
 volatile uint8_t clk_flag = 0;
+uint32_t last, now;
+float deltat;
+
 uint8_t cnt_1s = 0;
 
 float q0 = 1, q1 = 0, q2 = 0, q3 = 0;   // quaternion elements representing the estimated orientation
@@ -96,8 +99,7 @@ float exInt = 0, eyInt = 0, ezInt = 0;  // scaled integral error
 
 float pitch, yaw, roll;
 
-float deltat;
-uint32_t lastUpdate;
+
 Task_Struct AHRSTask;
 Char AHRSTaskStack[AHRS_TASK_STACK_SIZE];
 
@@ -143,7 +145,6 @@ void AHRS_taskFxn(UArg a0, UArg a1)
 
     for (;;)
     {
-        //PINCC26XX_setOutputValue(Board_GLED, PINCC26XX_getOutputValue(Board_GLED) ^ 1);
 
         // 1. Read accel val
         readAccelData(accelCount);  // Read the x/y/z adc values
@@ -159,58 +160,20 @@ void AHRS_taskFxn(UArg a0, UArg a1)
 
         //3. Read mag val
         readMagData(magCount);  // Read the x/y/z adc values
-        //magbias[0] = +470.;  // User environmental x-axis correction in milliGauss, should be automatically calculated
-        //magbias[1] = +120.;  // User environmental x-axis correction in milliGauss
-        //magbias[2] = +125.;  // User environmental x-axis correction in milliGauss
+        mx = getMres(magCount[1]);// * magCalibration[0] - magbias[0];  // get actual magnetometer value, this depends on scale being set
+        my = getMres(magCount[0]);// * magCalibration[1] - magbias[1];
+        mz = -1 * getMres(magCount[2]);// * magCalibration[2] - magbias[2]);
 
-        // Calculate the magnetometer values in milliGauss
-        // Include factory calibration per data sheet and user environmental corrections
-        mx = getMres(magCount[0]);// * magCalibration[0] - magbias[0];  // get actual magnetometer value, this depends on scale being set
-        my = getMres(magCount[1]);// * mRes*magCalibration[1] - magbias[1];
-        mz = getMres(magCount[2]);// * mRes*magCalibration[2] - magbias[2];
-        //System_printf("%d, %d, %d\r\n", magCount[0] ,magCount[1], magCount[2]);
-        //System_printf("%f, %f, %f\r\n", mx ,my, mz);
+        now = Clock_getTicks();
+        deltat = (now - last) / 100000.0f;
+        last = now;
+
         System_printf("%f,%f,%f,", ax, ay, az);
         System_printf("%f,%f,%f,", gx, gy, gz);
-        System_printf("%f,%f,%f\n", mx ,my, mz);
-        /*
-        deltat = (Clock_getTicks() - lastUpdate) / 100000.0f;
-        AHRSupdate(ax, ay, az, gx*PI/180.0, gy*PI/180.0, gz*PI/180.0, mx ,my, mz);
-        //System_printf("%f, %f, %f, %f\r\n", q0, q1, q2, q3);
-        lastUpdate = Clock_getTicks();
-        yaw = atan2(2.0 * (q1*q2 + q0*q3), q0*q0 + q1*q1 - q2*q2 - q3*q3);
-        pitch = -asin(2.0 * (q1*q3 - q0*q2));
-        roll = atan2(2.0 * (q0*q1 + q2*q3), q0*q0 - q1*q1 - q2*q2 + q3*q3);
+        System_printf("%f,%f,%f,", mx, my, mz);
+        System_printf("%f\r\n", deltat);
 
-        pitch *= 180.0f / PI;
-        yaw   *= 180.0f / PI;
-        roll  *= 180.0f / PI;
-        yaw += 180;
-        System_printf("Yaw, Pitch, Roll: %f, %f, %f \r\n", yaw, pitch, roll);
-        */
-        DELAY_MS(10);
-        //yaw   += 1.34;
-        /* Declination at Potheri, Chennail ,India  Model Used:    IGRF12    Help
-        Latitude:    12.823640¢X N
-        Longitude:    80.043518¢X E
-        Date    Declination
-        2016-04-09    1.34¢X W  changing by  0.06¢X E per year (+ve for west )*/
-
-
-        //PINCC26XX_setOutputValue(Board_GLED, PINCC26XX_getOutputValue(Board_GLED) ^ 1);
-
-        /*
-        I2C_Transaction i2cTransaction;
-        txBuffer[0] = 0x43;
-        i2cTransaction.slaveAddress = 0x68;
-        i2cTransaction.writeBuf = txBuffer;
-        i2cTransaction.writeCount = 1;
-        i2cTransaction.readBuf = rxBuffer;
-        i2cTransaction.readCount = 6;
-        I2C_transfer(i2c, &i2cTransaction);
-
-
-        */
+        DELAY_MS(20);
     }
 }
 
@@ -226,8 +189,7 @@ void AHRS_init(void){
 
     if (val == 0x71 || val == 0x73)
     {
-
-        MPU9250SelfTest(SelfTest);
+        //MPU9250SelfTest(SelfTest);
         System_printf("x-acceleration self test: %f\r\n", SelfTest[0]);
         System_printf("y-acceleration self test: %f\r\n", SelfTest[1]);
         System_printf("z-acceleration self test: %f\r\n", SelfTest[2]);
@@ -242,7 +204,7 @@ void AHRS_init(void){
         System_printf("%d, %d, %d mg\r\n",(int)(1000*accelBias[0]), (int)(1000*accelBias[1]), (int)(1000*accelBias[2]));
         System_printf("%f, %f, %f o/s\r\n", gyroBias[0], gyroBias[1], gyroBias[2]);
 
-        DELAY_MS(1);
+        DELAY_MS(1000);
 
         initMPU9250();
     }
@@ -253,12 +215,12 @@ void AHRS_init(void){
     if (val == 0x48){
         // Get magnetometer calibration from AK8963 ROM
         initAK8963(magCalibration);
-
+        //magcalMPU9250(magbias, magCalibration);
         System_printf("AK8963 initialized for active data mode....\r\n"); // Initialize device for active mode read of magnetometer
+        System_printf("AK8963 mag biases: %f, %f, %f\r\n", magbias[0], magbias[1], magbias[2]);
         System_printf("X-Axis sensitivity adjustment value: %f\r\n", magCalibration[0]);
         System_printf("Y-Axis sensitivity adjustment value: %f\r\n", magCalibration[1]);
         System_printf("Z-Axis sensitivity adjustment value: %f\r\n", magCalibration[2]);
-
     }
 }
 
