@@ -191,5 +191,10 @@ static void Board_keyChangeHandler(UArg a0)
     (*appKeyChangeHandler)(keysPressed);
   }
 }
+
+bool Get_BtnStatus(void)
+{
+    return PIN_getInputValue(Board_BTN1);
+}
 /*********************************************************************
 *********************************************************************/

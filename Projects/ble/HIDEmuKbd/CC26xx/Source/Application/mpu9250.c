@@ -189,8 +189,6 @@
 #define MAG_ASAY            0x11  // y-axis sensitivity adjustment
 #define MAG_ASAZ            0x12  // z-axis sensitivity adjustment
 
-#define MAG_DEVICE_ID                 0x48
-
 #define DELAY_MS(i)      (Task_sleep(((i) * 1000) / Clock_tickPeriod))
 #define DELAY_US(i)      (Task_sleep(((i) * 1) / Clock_tickPeriod))
 
@@ -220,24 +218,6 @@ uint8_t Ascale = AFS_2G;
 uint8_t Mscale = MFS_16BITS; // Choose either 14-bit or 16-bit magnetometer resolution
 uint8_t Mmode = 0x06;        // 2 for 8 Hz, 6 for 100 Hz continuous magnetometer data read
 
-// global constants for 9 DoF fusion and AHRS (Attitude and Heading Reference System)
-
-//**float GyroMeasError = M_PI * (40.0f / 180.0f);   // gyroscope measurement error in rads/s (start at 40 deg/s)
-//**float GyroMeasDrift = M_PI * (0.0f  / 180.0f);   // gyroscope measurement drift in rad/s/s (start at 0.0 deg/s/s)
-
-// There is a tradeoff in the beta parameter between accuracy and response speed.
-// In the original Madgwick study, beta of 0.041 (corresponding to GyroMeasError of 2.7 degrees/s) was found to give optimal accuracy.
-// However, with this value, the LSM9SD0 response time is about 10 seconds to a stable initial quaternion.
-// Subsequent changes also require a longish lag time to a stable output, not fast enough for a quadcopter or robot car!
-// By increasing beta (GyroMeasError) by about a factor of fifteen, the response time constant is reduced to ~2 sec
-// I haven't noticed any reduction in solution accuracy. This is essentially the I coefficient in a PID control sense;
-// the bigger the feedback coefficient, the faster the solution converges, usually at the expense of accuracy.
-// In any case, this is the free parameter in the Madgwick filtering and fusion scheme.
-//**float beta = sqrt(3.0f / 4.0f) * GyroMeasError;   // compute beta
-//**float zeta = sqrt(3.0f / 4.0f) * GyroMeasDrift;   // compute zeta, the other free parameter in the Madgwick scheme usually set to a small or zero value
-#define Kp 2.0f * 5.0f // these are the free parameters in the Mahony filter and fusion scheme, Kp for proportional feedback, Ki for integral
-#define Ki 0.0f
-#define PI M_PI
 /* -----------------------------------------------------------------------------
 *  Public Variables
 * ------------------------------------------------------------------------------
@@ -247,14 +227,6 @@ uint8_t Mmode = 0x06;        // 2 for 8 Hz, 6 for 100 Hz continuous magnetometer
 *  Private Variables
 * ------------------------------------------------------------------------------
 */
-uint32_t delt_t = 0; // used to control display output rate
-uint32_t count = 0, sumCount = 0; // used to control display output rate
-
-float q[4] = {1.0f, 0.0f, 0.0f, 0.0f};    // vector to hold quaternion
-float eInt[3] = {0.0f, 0.0f, 0.0f};       // vector to hold integral error for Mahony method
-int16_t tempCount;      // temperature raw count output
-float   temperature;    // Stores the real internal chip temperature in degrees Celsius
-uint32_t Now = 0;        // used to calculate integration interval
 
 
 /* -----------------------------------------------------------------------------
@@ -350,17 +322,23 @@ void readGyroData(int16_t * destination)
 
 void readMagData(int16_t * destination)
 {
-    uint8_t rawData[7];  // x/y/z gyro register data, ST2 register stored here, must read ST2 at end of data acquisition
+    uint8_t rawData[8];  // x/y/z gyro register data, ST2 register stored here, must read ST2 at end of data acquisition
     uint8_t st1;
 
-    SensorI2C_readReg(AK8963_ADDRESS, MAG_ST1, &st1, 1);
-    if(st1 & 0x01) { // wait for magnetometer data ready bit to be set
-        SensorI2C_readReg(AK8963_ADDRESS, MAG_XOUT_L, &rawData[0], 7);  // Read the six raw data and ST2 registers sequentially into data array
-        uint8_t c = rawData[6]; // End data read by reading ST2 register
+    //SensorI2C_readReg(AK8963_ADDRESS, MAG_ST1, &st1, 1);
+    //AK8963_read(MAG_ST1, &rawData[0], 8);
+    SensorI2C_readReg(MPU9250_ADDRESS, 0x49, &rawData[0], 8);
+    if(rawData[0] & 0x01) { // wait for magnetometer data ready bit to be set
+
+        //SensorI2C_readReg(AK8963_ADDRESS, MAG_XOUT_L, &rawData[0], 7);  // Read the six raw data and ST2 registers sequentially into data array
+        //SensorI2C_writeReg(MPU9250_ADDRESS, 0x26, 0x03);
+        //SensorI2C_readReg(MPU9250_ADDRESS, 0x49, &rawData[0], 7);
+        //AK8963_read(MAG_XOUT_L, &rawData[0], 7);
+        uint8_t c = rawData[7]; // End data read by reading ST2 register
         if(!(c & 0x08)) { // Check if magnetic sensor overflow set, if not then report data
-            destination[0] = ((int16_t)rawData[1] << 8) | rawData[0] ;  // Turn the MSB and LSB into a signed 16-bit value
-            destination[1] = ((int16_t)rawData[3] << 8) | rawData[2] ;  // Data stored as little Endian
-            destination[2] = ((int16_t)rawData[5] << 8) | rawData[4] ;
+            destination[0] = ((int16_t)rawData[2] << 8) | rawData[1] ;  // Turn the MSB and LSB into a signed 16-bit value
+            destination[1] = ((int16_t)rawData[4] << 8) | rawData[3] ;  // Data stored as little Endian
+            destination[2] = ((int16_t)rawData[6] << 8) | rawData[5] ;
         }
     }
 }
@@ -375,24 +353,44 @@ int16_t readTempData()
 void initAK8963(float * destination)
 {
 
+    SensorI2C_writeReg(MPU9250_ADDRESS, INT_PIN_CFG, 0x30);// INT Pin / Bypass Enable Configuration
+    SensorI2C_writeReg(MPU9250_ADDRESS, I2C_MST_CTRL, 0x4d);//I2C MAster mode and Speed 400 kHz
+    SensorI2C_writeReg(MPU9250_ADDRESS, USER_CTRL, 0x20); // I2C_MST _EN
+    SensorI2C_writeReg(MPU9250_ADDRESS, I2C_MST_DELAY_CTRL, 0x01);
+    SensorI2C_writeReg(MPU9250_ADDRESS, I2C_SLV0_CTRL, 0x81); //enable IIC    and EXT_SENS_DATA==1 Byte
+    AK8963_write(MAG_CNTL2,0x01); // Reset AK8963
+    AK8963_write(MAG_CNTL1,0x10 | Mmode); // use i2c to set AK8963 working on Continuous measurement mode1 & 16-bit output
+    SensorI2C_writeReg(MPU9250_ADDRESS, 0x25, 0x8c);
+    SensorI2C_writeReg(MPU9250_ADDRESS, 0x26, 0x02);
+    SensorI2C_writeReg(MPU9250_ADDRESS, 0x27, 0x88);
+    DELAY_MS(10);
+
+/*
     // First extract the factory calibration for each magnetometer axis
     uint8_t rawData[3];  // x/y/z gyro calibration data stored here
-    SensorI2C_writeReg(AK8963_ADDRESS, MAG_CNTL1, 0x00); // Power down magnetometer
+    //SensorI2C_writeReg(AK8963_ADDRESS, MAG_CNTL1, 0x00); // Power down magnetometer
+    AK8963_write(MAG_CNTL1, 0x00);
     DELAY_MS(50);
-    SensorI2C_writeReg(AK8963_ADDRESS, MAG_CNTL1, 0x0F); // Enter Fuse ROM access mode
+    //SensorI2C_writeReg(AK8963_ADDRESS, MAG_CNTL1, 0x0F); // Enter Fuse ROM access mode
+    AK8963_write(MAG_CNTL1, 0x0F);
     DELAY_MS(50);
-    SensorI2C_readReg(AK8963_ADDRESS, MAG_ASAX, &rawData[0], 3);  // Read the x-, y-, and z-axis calibration values
+    //SensorI2C_readReg(AK8963_ADDRESS, MAG_ASAX, &rawData[0], 3);  // Read the x-, y-, and z-axis calibration values
+    AK8963_read(MAG_ASAX, &rawData[0], 3);
     destination[0] =  (float)(rawData[0] - 128)/256. + 1.;   // Return x-axis sensitivity adjustment values, etc.
     destination[1] =  (float)(rawData[1] - 128)/256. + 1.;
     destination[2] =  (float)(rawData[2] - 128)/256. + 1.;
-    SensorI2C_writeReg(AK8963_ADDRESS, MAG_CNTL1, 0x00); // Power down magnetometer
+    //SensorI2C_writeReg(AK8963_ADDRESS, MAG_CNTL1, 0x00); // Power down magnetometer
+    AK8963_write(MAG_CNTL1, 0x00);
     DELAY_MS(50);
     // Configure the magnetometer for continuous read and highest resolution
     // set Mscale bit 4 to 1 (0) to enable 16 (14) bit resolution in CNTL register,
     // and enable continuous mode data acquisition Mmode (bits [3:0]), 0010 for 8 Hz and 0110 for 100 Hz sample rates
 
-    SensorI2C_writeReg(AK8963_ADDRESS, MAG_CNTL1, Mscale << 4 | Mmode); // Set magnetometer data resolution and sample ODR
+    //SensorI2C_writeReg(AK8963_ADDRESS, MAG_CNTL1, Mscale << 4 | Mmode); // Set magnetometer data resolution and sample ODR
+    AK8963_write(MAG_CNTL1, Mscale << 4 | Mmode);
     DELAY_MS(50);
+    SensorI2C_writeReg(MPU9250_ADDRESS, 0x25, 0x8c);    //準備連續read
+    */
 }
 
 void magcalMPU9250(float * dest1, float * dest2) {
@@ -496,8 +494,11 @@ void initMPU9250(void)
     // Set interrupt pin active high, push-pull, hold interrupt pin level HIGH until interrupt cleared,
     // clear on read of INT_STATUS, and enable I2C_BYPASS_EN so additional chips
     // can join the I2C bus and all can be controlled by the Arduino as master
-    SensorI2C_writeReg(MPU9250_ADDRESS, INT_PIN_CFG, 0x22);
+    //SensorI2C_writeReg(MPU9250_ADDRESS, INT_PIN_CFG, 0x22);
+
+    SensorI2C_writeReg(MPU9250_ADDRESS, USER_CTRL, 0x20);   //I2C Master Mode.
     SensorI2C_writeReg(MPU9250_ADDRESS, INT_ENABLE, 0x00);  // Disable data ready (bit 0) interrupt
+
     DELAY_MS(100);
 
 }
@@ -734,369 +735,22 @@ void MPU9250SelfTest(float * destination) // Should return percent deviation fro
         destination[ii+3] = 100.0*((float)(gSTAvg[ii] - gAvg[ii]))/factoryTrim[ii+3]; // Report percent differences
     }
 }
-
-bool GetMpuIntStatus(void)
+void AK8963_read(uint8_t addr, uint8_t* buf, uint8_t len)
 {
-    uint8_t val;
-    SensorI2C_readReg(MPU9250_ADDRESS, INT_STATUS, &val, 1);
+    SensorI2C_writeReg(MPU9250_ADDRESS, 0x25, 0x8c);
+    SensorI2C_writeReg(MPU9250_ADDRESS, 0x26, addr);
+    SensorI2C_writeReg(MPU9250_ADDRESS, 0x27, 0x80 | len);
 
-    return val & 0x01;
-}
-/*
-void MadgwickQuaternionUpdate(float ax, float ay, float az, float gx, float gy, float gz, float mx, float my, float mz)
-{
-    float q1 = q[0], q2 = q[1], q3 = q[2], q4 = q[3];   // short name local variable for readability
-    float norm;
-    float hx, hy, _2bx, _2bz;
-    float s1, s2, s3, s4;
-    float qDot1, qDot2, qDot3, qDot4;
-    // Auxiliary variables to avoid repeated arithmetic
-    float _2q1mx;
-    float _2q1my;
-    float _2q1mz;
-    float _2q2mx;
-    float _4bx;
-    float _4bz;
-    float _2q1 = 2.0f * q1;
-    float _2q2 = 2.0f * q2;
-    float _2q3 = 2.0f * q3;
-    float _2q4 = 2.0f * q4;
-    float _2q1q3 = 2.0f * q1 * q3;
-    float _2q3q4 = 2.0f * q3 * q4;
-    float q1q1 = q1 * q1;
-    float q1q2 = q1 * q2;
-    float q1q3 = q1 * q3;
-    float q1q4 = q1 * q4;
-    float q2q2 = q2 * q2;
-    float q2q3 = q2 * q3;
-    float q2q4 = q2 * q4;
-    float q3q3 = q3 * q3;
-    float q3q4 = q3 * q4;
-    float q4q4 = q4 * q4;
-    // Normalise accelerometer measurement
-    norm = sqrt(ax * ax + ay * ay + az * az);
-    if (norm == 0.0f) return; // handle NaN
-    norm = 1.0f/norm;
-    ax *= norm;
-    ay *= norm;
-    az *= norm;
-    // Normalise magnetometer measurement
-    norm = sqrt(mx * mx + my * my + mz * mz);
-    if (norm == 0.0f) return; // handle NaN
-    norm = 1.0f/norm;
-    mx *= norm;
-    my *= norm;
-    mz *= norm;
-    // Reference direction of Earth’s magnetic field
-    _2q1mx = 2.0f * q1 * mx;
-    _2q1my = 2.0f * q1 * my;
-    _2q1mz = 2.0f * q1 * mz;
-    _2q2mx = 2.0f * q2 * mx;
-
-    hx = mx * q1q1 – _2q1my * q4 + _2q1mz * q3 + mx * q2q2 + _2q2 * my * q3 + _2q2 * mz * q4 – mx * q3q3 – mx * q4q4;
-    hy = _2q1mx * q4 + my * q1q1 – _2q1mz * q2 + _2q2mx * q3 – my * q2q2 + my * q3q3 + _2q3 * mz * q4 – my * q4q4;
-    _2bx = sqrt(hx * hx + hy * hy);
-    _2bz = -_2q1mx * q3 + _2q1my * q2 + mz * q1q1 + _2q2mx * q4 – mz * q2q2 + _2q3 * my * q4 – mz * q3q3 + mz * q4q4;
-    _4bx = 2.0f * _2bx;
-    _4bz = 2.0f * _2bz;
-    // Gradient decent algorithm corrective step
-    s1 = -_2q3 * (2.0f * q2q4 – _2q1q3 – ax) + _2q2 * (2.0f * q1q2 + _2q3q4 – ay) – _2bz * q3 * (_2bx * (0.5f – q3q3 – q4q4) + _2bz * (q2q4 – q1q3) – mx) + (-_2bx * q4 + _2bz * q2) * (_2bx * (q2q3 – q1q4) + _2bz * (q1q2 + q3q4) – my) + _2bx * q3 * (_2bx * (q1q3 + q2q4) + _2bz * (0.5f – q2q2 – q3q3) – mz);
-    s2 = _2q4 * (2.0f * q2q4 – _2q1q3 – ax) + _2q1 * (2.0f * q1q2 + _2q3q4 – ay) – 4.0f * q2 * (1.0f – 2.0f * q2q2 – 2.0f * q3q3 – az) + _2bz * q4 * (_2bx * (0.5f – q3q3 – q4q4) + _2bz * (q2q4 – q1q3) – mx) + (_2bx * q3 + _2bz * q1) * (_2bx * (q2q3 – q1q4) + _2bz * (q1q2 + q3q4) – my) + (_2bx * q4 – _4bz * q2) * (_2bx * (q1q3 + q2q4) + _2bz * (0.5f – q2q2 – q3q3) – mz);
-    s3 = -_2q1 * (2.0f * q2q4 – _2q1q3 – ax) + _2q4 * (2.0f * q1q2 + _2q3q4 – ay) – 4.0f * q3 * (1.0f – 2.0f * q2q2 – 2.0f * q3q3 – az) + (-_4bx * q3 – _2bz * q1) * (_2bx * (0.5f – q3q3 – q4q4) + _2bz * (q2q4 – q1q3) – mx) + (_2bx * q2 + _2bz * q4) * (_2bx * (q2q3 – q1q4) + _2bz * (q1q2 + q3q4) – my) + (_2bx * q1 – _4bz * q3) * (_2bx * (q1q3 + q2q4) + _2bz * (0.5f – q2q2 – q3q3) – mz);
-    s4 = _2q2 * (2.0f * q2q4 – _2q1q3 – ax) + _2q3 * (2.0f * q1q2 + _2q3q4 – ay) + (-_4bx * q4 + _2bz * q2) * (_2bx * (0.5f – q3q3 – q4q4) + _2bz * (q2q4 – q1q3) – mx) + (-_2bx * q1 + _2bz * q3) * (_2bx * (q2q3 – q1q4) + _2bz * (q1q2 + q3q4) – my) + _2bx * q2 * (_2bx * (q1q3 + q2q4) + _2bz * (0.5f – q2q2 – q3q3) – mz);
-    norm = sqrt(s1 * s1 + s2 * s2 + s3 * s3 + s4 * s4);    // normalise step magnitude
-    norm = 1.0f/norm;
-    s1 *= norm;
-    s2 *= norm;
-    s3 *= norm;
-    s4 *= norm;
-    // Compute rate of change of quaternion
-    qDot1 = 0.5f * (-q2 * gx – q3 * gy – q4 * gz) – beta * s1;
-    qDot2 = 0.5f * (q1 * gx + q3 * gz – q4 * gy) – beta * s2;
-    qDot3 = 0.5f * (q1 * gy – q2 * gz + q4 * gx) – beta * s3;
-    qDot4 = 0.5f * (q1 * gz + q2 * gy – q3 * gx) – beta * s4;
-    // Integrate to yield quaternion
-    q1 += qDot1 * deltat;
-    q2 += qDot2 * deltat;
-    q3 += qDot3 * deltat;
-    q4 += qDot4 * deltat;
-    norm = sqrt(q1 * q1 + q2 * q2 + q3 * q3 + q4 * q4);    // normalise quaternion
-    norm = 1.0f/norm;
-    q[0] = q1 * norm;
-    q[1] = q2 * norm;
-    q[2] = q3 * norm;
-    q[3] = q4 * norm;
-}
-*/
-/*
-// Similar to Madgwick scheme but uses proportional and integral filtering on the error between estimated reference vectors and
-// measured ones.
-void MahonyQuaternionUpdate(float ax, float ay, float az, float gx, float gy, float gz, float mx, float my, float mz)
-{
-    float q1 = q[0], q2 = q[1], q3 = q[2], q4 = q[3];   // short name local variable for readability
-    float norm;
-    float hx, hy, bx, bz;
-    float vx, vy, vz, wx, wy, wz;
-    float ex, ey, ez;
-    float pa, pb, pc;
-    // Auxiliary variables to avoid repeated arithmetic
-    float q1q1 = q1 * q1;
-    float q1q2 = q1 * q2;
-    float q1q3 = q1 * q3;
-    float q1q4 = q1 * q4;
-    float q2q2 = q2 * q2;
-    float q2q3 = q2 * q3;
-    float q2q4 = q2 * q4;
-    float q3q3 = q3 * q3;
-    float q3q4 = q3 * q4;
-    float q4q4 = q4 * q4;
-    // Normalise accelerometer measurement
-    norm = sqrt(ax * ax + ay * ay + az * az);
-    if (norm == 0.0f) return; // handle NaN
-    norm = 1.0f / norm;        // use reciprocal for division
-    ax *= norm;
-    ay *= norm;
-    az *= norm;
-    // Normalise magnetometer measurement
-    norm = sqrt(mx * mx + my * my + mz * mz);
-    if (norm == 0.0f) return; // handle NaN
-    norm = 1.0f / norm;        // use reciprocal for division
-    mx *= norm;
-    my *= norm;
-    mz *= norm;
-    // Reference direction of Earth’s magnetic field
-    hx = 2.0f * mx * (0.5f – q3q3 – q4q4) + 2.0f * my * (q2q3 – q1q4) + 2.0f * mz * (q2q4 + q1q3);
-    hy = 2.0f * mx * (q2q3 + q1q4) + 2.0f * my * (0.5f – q2q2 – q4q4) + 2.0f * mz * (q3q4 – q1q2);
-    bx = sqrt((hx * hx) + (hy * hy));
-    bz = 2.0f * mx * (q2q4 – q1q3) + 2.0f * my * (q3q4 + q1q2) + 2.0f * mz * (0.5f – q2q2 – q3q3);
-    // Estimated direction of gravity and magnetic field
-    vx = 2.0f * (q2q4 – q1q3);
-    vy = 2.0f * (q1q2 + q3q4);
-    vz = q1q1 – q2q2 – q3q3 + q4q4;
-    wx = 2.0f * bx * (0.5f – q3q3 – q4q4) + 2.0f * bz * (q2q4 – q1q3);
-    wy = 2.0f * bx * (q2q3 – q1q4) + 2.0f * bz * (q1q2 + q3q4);
-    wz = 2.0f * bx * (q1q3 + q2q4) + 2.0f * bz * (0.5f – q2q2 – q3q3);
-    // Error is cross product between estimated direction and measured direction of gravity
-    ex = (ay * vz – az * vy) + (my * wz – mz * wy);
-    ey = (az * vx – ax * vz) + (mz * wx – mx * wz);
-    ez = (ax * vy – ay * vx) + (mx * wy – my * wx);
-    if (Ki > 0.0f)
-    {
-        eInt[0] += ex;      // accumulate integral error
-        eInt[1] += ey;
-        eInt[2] += ez;
-    }
-    else
-    {
-        eInt[0] = 0.0f;     // prevent integral wind up
-        eInt[1] = 0.0f;
-        eInt[2] = 0.0f;
-    }
-    // Apply feedback terms
-    gx = gx + Kp * ex + Ki * eInt[0];
-    gy = gy + Kp * ey + Ki * eInt[1];
-    gz = gz + Kp * ez + Ki * eInt[2];
-    // Integrate rate of change of quaternion
-    pa = q2;
-    pb = q3;
-    pc = q4;
-    q1 = q1 + (-q2 * gx – q3 * gy – q4 * gz) * (0.5f * deltat);
-    q2 = pa + (q1 * gx + pb * gz – pc * gy) * (0.5f * deltat);
-    q3 = pb + (q1 * gy – pa * gz + pc * gx) * (0.5f * deltat);
-    q4 = pc + (q1 * gz + pa * gy – pb * gx) * (0.5f * deltat);
-    // Normalise quaternion
-    norm = sqrt(q1 * q1 + q2 * q2 + q3 * q3 + q4 * q4);
-    norm = 1.0f / norm;
-    q[0] = q1 * norm;
-    q[1] = q2 * norm;
-    q[2] = q3 * norm;
-    q[3] = q4 * norm;
+    DELAY_MS(5);   //等待讀取
+    SensorI2C_readReg(MPU9250_ADDRESS, 0x49, buf, len);
 }
 
-
-void AHRS_loop(void)
+void AK8963_write(uint8_t addr, uint8_t val)
 {
-    uint8_t val;
+    SensorI2C_writeReg(MPU9250_ADDRESS, 0x25, 0x0c);
+    SensorI2C_writeReg(MPU9250_ADDRESS, 0x27, 0x81);
+    SensorI2C_writeReg(MPU9250_ADDRESS, 0x26, addr);
+    SensorI2C_writeReg(MPU9250_ADDRESS, 0x63, val);
 
-    SensorI2C_readReg(MPU9250_ADDRESS, INT_STATUS, &val, 1);
-    // If intPin goes high, all data registers have new data
-    if (val & 0x01) {  // On interrupt, check if data ready interrupt
-        readAccelData(accelCount);  // Read the x/y/z adc values
-        getAres();
-
-        // Now we'll calculate the accleration value into actual g's
-        ax = (float)accelCount[0] * aRes; // - accelBias[0];  // get actual g value, this depends on scale being set
-        ay = (float)accelCount[1] * aRes; // - accelBias[1];
-        az = (float)accelCount[2] * aRes; // - accelBias[2];
-
-        readGyroData(gyroCount);  // Read the x/y/z adc values
-        getGres();
-
-        // Calculate the gyro value into actual degrees per second
-        gx = (float)gyroCount[0] * gRes;  // get actual gyro value, this depends on scale being set
-        gy = (float)gyroCount[1] * gRes;
-        gz = (float)gyroCount[2] * gRes;
-
-        readMagData(magCount);  // Read the x/y/z adc values
-        getMres();
-        magbias[0] = +470.;  // User environmental x-axis correction in milliGauss, should be automatically calculated
-        magbias[1] = +120.;  // User environmental x-axis correction in milliGauss
-        magbias[2] = +125.;  // User environmental x-axis correction in milliGauss
-
-        // Calculate the magnetometer values in milliGauss
-        // Include factory calibration per data sheet and user environmental corrections
-        mx = (float)magCount[0]*mRes*magCalibration[0] - magbias[0];  // get actual magnetometer value, this depends on scale being set
-        my = (float)magCount[1]*mRes*magCalibration[1] - magbias[1];
-        mz = (float)magCount[2]*mRes*magCalibration[2] - magbias[2];
-    }
-
-    // Sensors x (y)-axis of the accelerometer is aligned with the y (x)-axis of the magnetometer;
-    // the magnetometer z-axis (+ down) is opposite to z-axis (+ up) of accelerometer and gyro!
-    // We have to make some allowance for this orientationmismatch in feeding the output to the quaternion filter.
-    // For the MPU-9250, we have chosen a magnetic rotation that keeps the sensor forward along the x-axis just like
-    // in the LSM9DS0 sensor. This rotation can be modified to allow any convenient orientation convention.
-    // This is ok by aircraft orientation standards!
-    // Pass gyro rate as rad/s
-    //  MadgwickQuaternionUpdate(ax, ay, az, gx*PI/180.0f, gy*PI/180.0f, gz*PI/180.0f,  my,  mx, mz);
-    MahonyQuaternionUpdate(ax, ay, az, gx*PI/180.0f, gy*PI/180.0f, gz*PI/180.0f, my, mx, mz);
-
-
-    if (!AHRS) {
-        if(SerialDebug) {
-            // Print acceleration values in milligs!
-            System_printf("X-acceleration: %f mg\r\n", 1000*ax);
-            System_printf("Y-acceleration: %f mg\r\n", 1000*ay);
-            System_printf("Z-acceleration: %f mg\r\n", 1000*az);
-
-            // Print gyro values in degree/sec
-            System_printf("X-gyro rate: %f degrees/sec\r\n", gx);
-            System_printf("Y-gyro rate: %f degrees/sec\r\n", gy);
-            System_printf("Z-gyro rate: %f degrees/sec\r\n", gz);
-
-            // Print mag values in degree/sec
-            System_printf("X-mag field: %f mG\r\n", mx);
-            System_printf("Y-mag field: %f mG\r\n", my);
-            System_printf("Z-mag field: %f mG\r\n", mz);
-
-            tempCount = readTempData();  // Read the adc values
-            temperature = ((float) tempCount) / 333.87 + 21.0; // Temperature in degrees Centigrade
-            // Print temperature in degrees Centigrade
-            System_printf("Temperature is %f degrees C\r\n"); // Print T values to tenths of s degree C
-        }
-    }
-    else {
-        // Serial print and/or display at 0.5 s rate independent of data rates
-        if(SerialDebug) {
-            System_printf("ax = %d mg\r\n", (int)1000*ax);
-            System_printf("ay = %d mg\r\n", (int)1000*ay);
-            System_printf("az = %d mg\r\n", (int)1000*az);
-            System_printf("gx = %f deg/s\r\n", gx);
-            System_printf("gy = %f deg/s\r\n", gy);
-            System_printf("gz = %f deg/s\r\n", gz);
-            System_printf("mx = %d mG\r\n", (int)mx);
-            System_printf("my = %d mG\r\n", (int)my);
-            System_printf("mz = %d mG\r\n", (int)mz);
-
-            System_printf("q0 = %f\r\n", q[0]);
-            System_printf("qx = %f\r\n", q[1]);
-            System_printf("qy = %f\r\n", q[2]);
-            System_printf("qz = %f\r\n", q[3]);
-        }
-        // Define output variables from updated quaternion---these are Tait-Bryan angles, commonly used in aircraft orientation.
-        // In this coordinate system, the positive z-axis is down toward Earth.
-        // Yaw is the angle between Sensor x-axis and Earth magnetic North (or true North if corrected for local declination, looking down on the sensor positive yaw is counterclockwise.
-        // Pitch is angle between sensor x-axis and Earth ground plane, toward the Earth is positive, up toward the sky is negative.
-        // Roll is angle between sensor y-axis and Earth ground plane, y-axis up is positive roll.
-        // These arise from the definition of the homogeneous rotation matrix constructed from quaternions.
-        // Tait-Bryan angles as well as Euler angles are non-commutative; that is, the get the correct orientation the rotations must be
-        // applied in the correct order which for this configuration is yaw, pitch, and then roll.
-        // For more see http://en.wikipedia.org/wiki/Conversion_between_quaternions_and_Euler_angles which has additional links.
-        yaw   = atan2(2.0f * (q[1] * q[2] + q[0] * q[3]), q[0] * q[0] + q[1] * q[1] - q[2] * q[2] - q[3] * q[3]);
-        pitch = -asin(2.0f * (q[1] * q[3] - q[0] * q[2]));
-        roll  = atan2(2.0f * (q[0] * q[1] + q[2] * q[3]), q[0] * q[0] - q[1] * q[1] - q[2] * q[2] + q[3] * q[3]);
-        pitch *= 180.0f / PI;
-        yaw   *= 180.0f / PI;
-        yaw   -= 13.8; // Declination at Danville, California is 13 degrees 48 minutes and 47 seconds on 2014-04-04
-        roll  *= 180.0f / PI;
-
-        if(SerialDebug) {
-            System_printf("Yaw, Pitch, Roll: %f, %f, %f\r\n", yaw, pitch, roll);
-            System_printf("rate = %f Hz\r\n", (float)sumCount/sum);
-        }
-
-
-        // With these settings the filter is updating at a ~145 Hz rate using the Madgwick scheme and
-        // >200 Hz using the Mahony scheme even though the display refreshes at only 2 Hz.
-        // The filter update rate is determined mostly by the mathematical steps in the respective algorithms,
-        // the processor speed (8 MHz for the 3.3V Pro Mini), and the magnetometer ODR:
-        // an ODR of 10 Hz for the magnetometer produce the above rates, maximum magnetometer ODR of 100 Hz produces
-        // filter update rates of 36 - 145 and ~38 Hz for the Madgwick and Mahony schemes, respectively.
-        // This is presumably because the magnetometer read takes longer than the gyro or accelerometer reads.
-        // This filter update rate should be fast enough to maintain accurate platform orientation for
-        // stabilization control of a fast-moving robot or quadcopter. Compare to the update rate of 200 Hz
-        // produced by the on-board Digital Motion Processor of Invensense's MPU6050 6 DoF and MPU9150 9DoF sensors.
-        // The 3.3 V 8 MHz Pro Mini is doing pretty well!
-    }
+    DELAY_MS(10);   //等待寫入
 }
-*/
-/*
-void AHRS_loop(void)
-{
-    uint8_t val;
-
-    SensorI2C_readReg(MPU9250_ADDRESS, INT_STATUS, &val, 1);
-    // If intPin goes high, all data registers have new data
-    if (val & 0x01) {  // On interrupt, check if data ready interrupt
-        //1. Read the accelerate x/y/z adc values
-        readAccelData(accelCount);
-        getAres();
-        // Now we'll calculate the accleration value into actual g's
-        ax = (float)accelCount[0] * aRes; // - accelBias[0];  // get actual g value, this depends on scale being set
-        ay = (float)accelCount[1] * aRes; // - accelBias[1];
-        az = (float)accelCount[2] * aRes; // - accelBias[2];
-
-        //2. Read the gyro x/y/z adc values
-        readGyroData(gyroCount);
-        getGres();
-        // Calculate the gyro value into actual degrees per second
-        gx = (float)gyroCount[0] * gRes;  // get actual gyro value, this depends on scale being set
-        gy = (float)gyroCount[1] * gRes;
-        gz = (float)gyroCount[2] * gRes;
-
-        //3. Read the mag x/y/z adc values
-        readMagData(magCount);
-        getMres();
-        magbias[0] = +470.;  // User environmental x-axis correction in milliGauss, should be automatically calculated
-        magbias[1] = +120.;  // User environmental x-axis correction in milliGauss
-        magbias[2] = +125.;  // User environmental x-axis correction in milliGauss
-        // Calculate the magnetometer values in milliGauss
-        // Include factory calibration per data sheet and user environmental corrections
-        mx = (float)magCount[0] * mRes * magCalibration[0] - magbias[0];  // get actual magnetometer value, this depends on scale being set
-        my = (float)magCount[1] * mRes * magCalibration[1] - magbias[1];
-        mz = (float)magCount[2] * mRes * magCalibration[2] - magbias[2];
-
-        //4. Print acceleration values in milligs!
-        //System_printf("X");
-
-        System_printf("X-acceleration: %f mg\r\n", 1000 * ax);
-        System_printf("Y-acceleration: %f mg\r\n", 1000 * ay);
-        System_printf("Z-acceleration: %f mg\r\n", 1000 * az);
-
-        // Print gyro values in degree/sec
-        System_printf("X-gyro rate: %f degrees/sec\r\n", gx);
-        System_printf("Y-gyro rate: %f degrees/sec\r\n", gy);
-        System_printf("Z-gyro rate: %f degrees/sec\r\n", gz);
-
-        // Print mag values in degree/sec
-        System_printf("X-mag field: %f mG\r\n", mx);
-        System_printf("Y-mag field: %f mG\r\n", my);
-        System_printf("Z-mag field: %f mG\r\n", mz);
-
-        tempCount = readTempData();  // Read the adc values
-        temperature = ((float) tempCount) / 333.87 + 21.0; // Temperature in degrees Centigrade
-        // Print temperature in degrees Centigrade
-        System_printf("Temperature is %f degrees C\r\n"); // Print T values to tenths of s degree C
-
-    }
-}
-*/

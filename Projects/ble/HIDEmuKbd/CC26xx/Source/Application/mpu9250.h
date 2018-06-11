@@ -68,8 +68,8 @@ void readMagData(int16_t* destination);
 float getAres(int16_t rawData);
 float getGres(int16_t rawData);
 float getMres(int16_t rawData);
-bool GetMpuIntStatus(void);
-void AHRS_loop(void);
+void AK8963_read(uint8_t addr, uint8_t* buf, uint8_t len);
+void AK8963_write(uint8_t addr, uint8_t val);
 /*********************************************************************
  * FUNCTIONS
  */

@@ -68,6 +68,7 @@ extern "C"
  * Task creation function for the HID emulated keyboard.
  */
 extern void HidEmuKbd_createTask(void);
+uint8_t HidEmuKbd_enqueueMsg(uint16_t event, uint8_t state, uint8_t* mousereport, uint8_t* keyboardreport);
 /*********************************************************************
 *********************************************************************/
 

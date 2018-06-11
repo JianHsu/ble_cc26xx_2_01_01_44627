@@ -16,7 +16,7 @@ mx_c = []
 my_c = []
 mz_c = []
 
-with open("mag_unperfect.txt", "r") as ins:
+with open("mag.txt", "r") as ins:
     for line in ins:
         arr = line.split(',')
         if (len(arr) == 10) :
@@ -33,9 +33,9 @@ aavg = []
 aavg.append((amax[0] + amin[0]) / 2)
 aavg.append((amax[1] + amin[1]) / 2)
 aavg.append((amax[2] + amin[2]) / 2)
-print amax
-print amin
-print aavg
+#print amax
+#print amin
+#print aavg
 for i in range(len(ax)):
 	ax_c.append(ax[i] - aavg[0])
 	ay_c.append(ay[i] - aavg[1])

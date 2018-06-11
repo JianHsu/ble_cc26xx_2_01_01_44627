@@ -266,7 +266,7 @@ static void HidEmuKbd_taskFxn(UArg a0, UArg a1);
 static void HidEmuKbd_processAppMsg(hidEmuKbdEvt_t *pMsg);
 static void HidEmuKbd_processStackMsg(ICall_Hdr *pMsg);
 static void HidEmuKbd_processGattMsg(gattMsgEvent_t *pMsg);
-static uint8_t HidEmuKbd_enqueueMsg(uint16_t event, uint8_t state);
+//static uint8_t HidEmuKbd_enqueueMsg(uint16_t event, uint8_t state);
 
 // Key press.
 static void HidEmuKbd_keyPressHandler(uint8_t keys);
@@ -427,7 +427,6 @@ void HidEmuKbd_init(void)
   // Initialize keys on SmartRF06EB.
   Board_initKeys(HidEmuKbd_keyPressHandler);
 
-  //AHRS_init();
 }
 
 /*********************************************************************
@@ -486,7 +485,6 @@ void HidEmuKbd_taskFxn(UArg a0, UArg a1)
         {
           // Process message.
           HidEmuKbd_processAppMsg(pMsg);
-          
           // Free the space from the message.
           ICall_free(pMsg);
         }
@@ -544,10 +542,10 @@ static void HidEmuKbd_processAppMsg(hidEmuKbdEvt_t *pMsg)
   switch (pMsg->hdr.event)
   {
     case HIDEMUKBD_KEY_CHANGE_EVT:
-      HidEmuKbd_handleKeys(0, pMsg->hdr.state);
+        HidEmuKbd_handleKeys(0, pMsg->hdr.state);
       break;
     case 2:
-        HidEmuKbd_sendMouseReport(0, 0x01, 0x01);
+        HidEmuKbd_sendMouseReport(pMsg->hdr.mousereport[0], pMsg->hdr.mousereport[1], pMsg->hdr.mousereport[2]);
 
       break;
     default:
@@ -568,7 +566,7 @@ static void HidEmuKbd_processAppMsg(hidEmuKbdEvt_t *pMsg)
 static void HidEmuKbd_keyPressHandler(uint8_t keys)
 {
   // Enqueue the event.
-  HidEmuKbd_enqueueMsg(HIDEMUKBD_KEY_CHANGE_EVT, keys);
+  HidEmuKbd_enqueueMsg(HIDEMUKBD_KEY_CHANGE_EVT, keys, 0, 0);
 }
 
 /*********************************************************************
@@ -814,7 +812,7 @@ static void HidEmuKbd_hidEventCB(uint8_t evt)
  *
  * @return  TRUE or FALSE
  */
-static uint8_t HidEmuKbd_enqueueMsg(uint16_t event, uint8_t state)
+uint8_t HidEmuKbd_enqueueMsg(uint16_t event, uint8_t state, uint8_t* mousereport, uint8_t* keyboardreport)
 {
   hidEmuKbdEvt_t *pMsg;
   
@@ -823,6 +821,12 @@ static uint8_t HidEmuKbd_enqueueMsg(uint16_t event, uint8_t state)
   {
     pMsg->hdr.event = event;
     pMsg->hdr.state = state;
+    pMsg->hdr.mousereport[0] = mousereport[0];
+    pMsg->hdr.mousereport[1] = mousereport[1];
+    pMsg->hdr.mousereport[2] = mousereport[2];
+    pMsg->hdr.mousereport[3] = mousereport[3];
+    pMsg->hdr.mousereport[4] = mousereport[4];
+    //pMsg->hdr.keyboardreport = *keyboardreport;
     
     // Enqueue the message.
     return Util_enqueueMsg(appMsgQueue, sem, (uint8_t *)pMsg);
