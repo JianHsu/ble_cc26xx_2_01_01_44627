@@ -47,6 +47,7 @@
 #include <ti/sysbios/knl/Clock.h>
 #include <ti/drivers/pin/PINCC26XX.h>
 #include <ti/drivers/I2C.h>
+#include <ti/drivers/PWM.h>
 
 #include "math.h"
 
@@ -84,7 +85,6 @@
 *  Private Variables
 * ------------------------------------------------------------------------------
 */
-
 
 float ax, ay, az, gx, gy, gz, mx, my, mz; // variables to hold latest sensor data values
 float aRes, gRes, mRes;      // scale resolutions per LSB for the sensors
@@ -134,6 +134,38 @@ void AHRS_taskFxn(UArg a0, UArg a1)
 {
     uint32_t x, y;
     float z;
+    PWM_Handle pwm_r, pwm_g, pwm_b;
+    PWM_Params params;
+    uint16_t   pwmPeriod = 5000;      // Period and duty in microseconds
+
+    PWM_Params_init(&params);
+    params.dutyUnits = PWM_DUTY_US;
+    params.dutyValue = 0;
+    params.periodUnits = PWM_PERIOD_US;
+    params.periodValue = pwmPeriod;
+    pwm_r = PWM_open(Board_PWM0, &params);
+    pwm_g = PWM_open(Board_PWM1, &params);
+    pwm_b = PWM_open(Board_PWM2, &params);
+
+    PWM_start(pwm_r);
+    PWM_start(pwm_g);
+    PWM_start(pwm_b);
+    PWM_setDuty(pwm_r, 0);
+    PWM_setDuty(pwm_g, 0);
+    PWM_setDuty(pwm_b, 0);
+    /* Loop forever incrementing the PWM duty */
+    /*
+    while (1) {
+        PWM_setDuty(pwm1, duty);
+
+        duty = (duty + dutyInc);
+        if (duty == pwmPeriod || (!duty)) {
+            dutyInc = - dutyInc;
+        }
+
+        DELAY_MS(5);
+    }
+    */
     /*
     I2C_init();
     I2C_Params_init(&i2cParams);
@@ -208,10 +240,10 @@ void AHRS_taskFxn(UArg a0, UArg a1)
         //轉為歐拉角
         y = Clock_getTicks();
         z = (y - x) / 100.0f;
-        System_printf("%f\n", z);
+
         //QtoEular(quaternion[0], quaternion[1], -quaternion[2], -quaternion[3]);
         QtoEular(quaternion[0], -quaternion[1], quaternion[2], -quaternion[3]);
-        //System_printf("\t%f, %f, %f\n", yaw, pitch, roll);
+        System_printf("\t%f, %f, %f\n", yaw, pitch, roll);
         //移動鼠標
         Move_Mouse(yaw, pitch, roll);
         DELAY_MS(5);
