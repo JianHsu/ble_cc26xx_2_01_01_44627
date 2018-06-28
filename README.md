@@ -23,3 +23,14 @@
 	https://github.com/kriswiner/MPU9250/blob/master/MPU9250BasicAHRS.ino
 	
 此範例程式將MPU9250操作在BYPASS MODE，但手邊的MPU9250內的AK8963在100KHz下無法讀取，故修改為I2C Master Mode由MPU9250去讀取AK8963的資料。
+
+## 2-6.新增PWM控制RGB LED
+	
+	ti\tirtos_cc13xx_cc26xx_2_21_00_06\products\tidrivers_cc13xx_cc26xx_2_21_00_04\packages\ti\drivers\
+	ti\tirtos_cc13xx_cc26xx_2_21_00_06\products\tidrivers_cc13xx_cc26xx_2_21_00_04\packages\ti\drivers\pwm
+	ti\tirtos_cc13xx_cc26xx_2_21_00_06\products\tidrivers_cc13xx_cc26xx_2_21_00_04\packages\ti\drivers\timer
+將裡面的PWM.c(.h)、PWMTimerCC26XX.c(.h)、GPTimerCC26XX.c(.h)複製到
+	
+	ti\tirtos_simplelink_2_13_00_06\packages\ti\drivers
+
+再將6個檔案include到專案中，並且參考Sample Code，將PWM Driver 引入。
