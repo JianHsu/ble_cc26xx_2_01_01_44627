@@ -76,8 +76,8 @@ static void Board_keyCallback(PIN_Handle hPin, PIN_Id pinId);
  */
 
 // Value of keys Pressed
-static uint8_t keysPressed;
-
+uint8_t keysPressed;
+uint8_t keyvalue;
 // Key debounce clock
 static Clock_Struct keyChangeClock;
 
@@ -115,13 +115,13 @@ void Board_initKeys(keysPressedCB_t appKeyCB)
   hKeyPins = PIN_open(&keyPins, keyPinsCfg);
   PIN_registerIntCb(hKeyPins, Board_keyCallback);
 
-  PIN_setConfig(hKeyPins, PIN_BM_IRQ, Board_BUTTON0  | PIN_IRQ_NEGEDGE);
-  PIN_setConfig(hKeyPins, PIN_BM_IRQ, Board_BUTTON1  | PIN_IRQ_NEGEDGE);
+  //PIN_setConfig(hKeyPins, PIN_BM_IRQ, Board_BUTTON0  | PIN_IRQ_NEGEDGE);
+  //PIN_setConfig(hKeyPins, PIN_BM_IRQ, Board_BUTTON1  | PIN_IRQ_NEGEDGE);
 
 #ifdef POWER_SAVING
   //Enable wakeup
-  PIN_setConfig(hKeyPins, PINCC26XX_BM_WAKEUP, Board_BUTTON0 | PINCC26XX_WAKEUP_NEGEDGE);
-  PIN_setConfig(hKeyPins, PINCC26XX_BM_WAKEUP, Board_BUTTON1 | PINCC26XX_WAKEUP_NEGEDGE);
+  //PIN_setConfig(hKeyPins, PINCC26XX_BM_WAKEUP, Board_BUTTON0 | PINCC26XX_WAKEUP_NEGEDGE);
+  //PIN_setConfig(hKeyPins, PINCC26XX_BM_WAKEUP, Board_BUTTON1 | PINCC26XX_WAKEUP_NEGEDGE);
 #endif
 
   // Setup keycallback for keys
@@ -144,18 +144,22 @@ void Board_initKeys(keysPressedCB_t appKeyCB)
 
 static void Board_keyCallback(PIN_Handle hPin, PIN_Id pinId)
 {
-  keysPressed = 0;
+  //keysPressed = 0;
 
   if ( PIN_getInputValue(Board_BTN1) == 0 )
   {
-      keysPressed |= KEY_LEFT;
+      keyvalue = 0x00;
   }
-
+  else
+  {
+      keyvalue = 0x01;
+  }
+/*
   if ( PIN_getInputValue(Board_BTN2) == 0 )
   {
     keysPressed |= KEY_SELECT;
   }
-/*
+
   if ( PIN_getInputValue(Board_KEY_DOWN) == 0 )
   {
     keysPressed |= KEY_DOWN;
@@ -185,16 +189,19 @@ static void Board_keyCallback(PIN_Handle hPin, PIN_Id pinId)
  */
 static void Board_keyChangeHandler(UArg a0)
 {
-  if (appKeyChangeHandler != NULL)
-  {
-    // Notify the application
-    (*appKeyChangeHandler)(keysPressed);
-  }
-}
+    if (keyvalue == PIN_getInputValue(Board_BTN1))
+    {
+        if (keyvalue)
+            keysPressed = 0;
+        else
+            keysPressed = 1;
 
-bool Get_BtnStatus(void)
-{
-    return PIN_getInputValue(Board_BTN1);
+        if (appKeyChangeHandler != NULL)
+        {
+            // Notify the application
+            (*appKeyChangeHandler)(keysPressed);
+        }
+    }
 }
 /*********************************************************************
 *********************************************************************/

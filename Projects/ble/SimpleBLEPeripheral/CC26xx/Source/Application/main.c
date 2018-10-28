@@ -35,7 +35,7 @@
   -->
 */
 #include <xdc/runtime/Error.h>
-
+#include <xdc/runtime/System.h>
 #include <ti/sysbios/family/arm/cc26xx/Power.h>
 #include <ti/sysbios/BIOS.h>
 
@@ -43,7 +43,7 @@
 #include "bcomdef.h"
 #include "peripheral.h"
 #include "simpleBLEPeripheral.h"
-
+#include "uart_printf.h"
 /* Header files required to enable instruction fetch cache */
 #include <inc/hw_memmap.h>
 #include <driverlib/vims.h>
@@ -80,7 +80,14 @@ extern uint32_t ti_sysbios_family_arm_m3_Hwi_resetVectors;
 int main()
 {
   PIN_init(BoardGpioInitTable);
+  /*
+  UART_Params uartParams;
+UART_Params_init(&uartParams);
+uartParams.baudRate = 115200;
+UartPrintf_init(UART_open(Board_UART, &uartParams));
 
+System_printf("Hello, universe!\r\n");
+*/
 #ifndef POWER_SAVING
     /* Set constraints for Standby, powerdown and idle mode */
     Power_setConstraint(Power_SB_DISALLOW);

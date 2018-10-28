@@ -16,7 +16,7 @@
 # sources were generated) is:
 #    C:\ti\simplelink\ble_cc26xx_2_01_01_44627\Projects\ble\SimpleBLEPeripheral\CC26xx\CCS\Config\src
 #
-GEN_SRC_DIR ?= ../../Config/src
+GEN_SRC_DIR ?= ../../../../../ti/simplelink/ble_cc26xx_2_01_01_44627/Projects/ble/SimpleBLEPeripheral/CC26xx/CCS/Config/src
 
 ifeq (,$(wildcard $(GEN_SRC_DIR)))
 $(error "ERROR: GEN_SRC_DIR must be set to the directory containing the generated sources")

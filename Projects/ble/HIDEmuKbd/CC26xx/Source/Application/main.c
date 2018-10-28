@@ -68,6 +68,12 @@ bleUserCfg_t user0Cfg = BLE_USER_CFG;
 
 #endif // USE_DEFAULT_USER_CFG
 
+#include <ti/sysbios/knl/Task.h>
+#include <ti/sysbios/knl/Clock.h>
+
+#define DELAY_MS(i)      (Task_sleep(((i) * 1000) / Clock_tickPeriod))
+#define DELAY_US(i)      (Task_sleep(((i) * 1) / Clock_tickPeriod))
+
 /**
  * Exception handler
  */
@@ -82,11 +88,21 @@ int main()
 {
     PIN_init(BoardGpioInitTable);
 
+    UART_Params uartParams;
+    UART_Params_init(&uartParams);
+    uartParams.baudRate = 115200;
+    UartPrintf_init(UART_open(Board_UART, &uartParams));
+
+    System_printf("SYS Start!\r\n");
+    DELAY_MS(1000);
+
+
 #ifndef POWER_SAVING
     /* Set constraints for Standby, powerdown and idle mode */
     Power_setConstraint  (Power_SB_DISALLOW);
     Power_setConstraint  (Power_IDLE_PD_DISALLOW);
 #endif //POWER_SAVING
+
 
     /* Initialize ICall module */
     ICall_init();

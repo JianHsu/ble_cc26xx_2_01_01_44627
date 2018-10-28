@@ -55,17 +55,9 @@ extern "C" {
 /*********************************************************************
  * CONSTANTS
  */
-#define KEY_SELECT            0x0001
-#define KEY_UP                0x0002
-#define KEY_DOWN              0x0004
-#define KEY_LEFT              0x0008
-#define KEY_RIGHT             0x0010
-#define Board_BUTTON0       Board_BTN1
-#define Board_BUTTON1       Board_BTN2
-#define Board_BTN1         0x0001
-#define Board_BTN2         0x0002
+
 // Debounce timeout in milliseconds
-#define KEY_DEBOUNCE_TIMEOUT  200
+#define KEY_DEBOUNCE_TIMEOUT  50
 
 /*********************************************************************
  * TYPEDEFS
@@ -90,7 +82,6 @@ typedef void (*keysPressedCB_t)(uint8 keysPressed);
  * @return  none
  */
 void Board_initKeys(keysPressedCB_t appKeyCB);
-bool Get_BtnStatus(void);
 
 /*********************************************************************
 *********************************************************************/  

@@ -48,6 +48,7 @@
 #include <ti/drivers/pin/PINCC26XX.h>
 #include <ti/drivers/I2C.h>
 #include <ti/drivers/PWM.h>
+#include <ti/drivers/ADC.h>
 
 #include "math.h"
 
@@ -134,18 +135,24 @@ void AHRS_taskFxn(UArg a0, UArg a1)
 {
     uint32_t x, y;
     float z;
+
     PWM_Handle pwm_r, pwm_g, pwm_b;
-    PWM_Params params;
+    PWM_Params PWM_params;
     uint16_t   pwmPeriod = 5000;      // Period and duty in microseconds
 
-    PWM_Params_init(&params);
-    params.dutyUnits = PWM_DUTY_US;
-    params.dutyValue = 0;
-    params.periodUnits = PWM_PERIOD_US;
-    params.periodValue = pwmPeriod;
-    pwm_r = PWM_open(Board_PWM0, &params);
-    pwm_g = PWM_open(Board_PWM1, &params);
-    pwm_b = PWM_open(Board_PWM2, &params);
+    ADC_Handle   adc;
+    ADC_Params   ADC_params;
+    uint16_t adcValue0;
+
+    /*PWM control RGB LED.
+    PWM_Params_init(&PWM_params);
+    PWM_params.dutyUnits = PWM_DUTY_US;
+    PWM_params.dutyValue = 0;
+    PWM_params.periodUnits = PWM_PERIOD_US;
+    PWM_params.periodValue = pwmPeriod;
+    pwm_r = PWM_open(Board_PWM0, &PWM_params);
+    pwm_g = PWM_open(Board_PWM1, &PWM_params);
+    pwm_b = PWM_open(Board_PWM2, &PWM_params);
 
     PWM_start(pwm_r);
     PWM_start(pwm_g);
@@ -153,25 +160,17 @@ void AHRS_taskFxn(UArg a0, UArg a1)
     PWM_setDuty(pwm_r, 0);
     PWM_setDuty(pwm_g, 0);
     PWM_setDuty(pwm_b, 0);
-    /* Loop forever incrementing the PWM duty */
-    /*
-    while (1) {
-        PWM_setDuty(pwm1, duty);
 
-        duty = (duty + dutyInc);
-        if (duty == pwmPeriod || (!duty)) {
-            dutyInc = - dutyInc;
-        }
+    ADC_init();
+    ADC_Params_init(&ADC_params);
+    adc = ADC_open(Board_ADC0, &ADC_params);
 
-        DELAY_MS(5);
-    }
-    */
-    /*
+/*
     I2C_init();
     I2C_Params_init(&i2cParams);
     i2cParams.bitRate = I2C_400kHz;
     i2c = I2C_open(Board_I2C, &i2cParams);
-    */
+*/
     SensorI2C_open();
 
     UART_Params uartParams;
@@ -236,17 +235,21 @@ void AHRS_taskFxn(UArg a0, UArg a1)
         //計算姿態
         x = Clock_getTicks();
         AHRSupdate(ax, ay, az, gx * PI / 180.0, gy * PI / 180.0, gz * PI / 180.0, mx, my, mz);
-        //System_printf("%f, %f, %f, %f", quaternion[0], quaternion[1], quaternion[2], quaternion[3]);
+        System_printf("%f, %f, %f, %f", quaternion[0], quaternion[1], quaternion[2], quaternion[3]);
         //轉為歐拉角
         y = Clock_getTicks();
         z = (y - x) / 100.0f;
 
         //QtoEular(quaternion[0], quaternion[1], -quaternion[2], -quaternion[3]);
         QtoEular(quaternion[0], -quaternion[1], quaternion[2], -quaternion[3]);
-        System_printf("\t%f, %f, %f\n", yaw, pitch, roll);
+        //System_printf("\t%f, %f, %f\n", yaw, pitch, roll);
         //移動鼠標
-        Move_Mouse(yaw, pitch, roll);
-        DELAY_MS(5);
+//        Move_Mouse(yaw, pitch, roll);
+
+
+//        ADC_convert(adc, &adcValue0);
+//        System_printf("%d\n", adcValue0);
+        DELAY_MS(500);
     }
 }
 
