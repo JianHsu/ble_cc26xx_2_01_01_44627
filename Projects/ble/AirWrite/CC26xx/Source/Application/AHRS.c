@@ -75,8 +75,8 @@
 /*End of debug*/
 
 #define Attitude_Index          0
-#define Mouse_Index             2
-#define Function_Index          3
+#define Mouse_Index             3
+#define Button_Index            2
 
 /*Attitude Mode Detect Angle Value*/
 //Normal(平穩) = 1, Up(上仰) = 2, Down(下俯) = 3, Right(右翻) = 4, Left(左翻) = 5
@@ -96,14 +96,14 @@
 /*MODE 4 - Right*/
 #define RMode_pitch_pos         30
 #define RMode_pitch_neg         -30
-#define RMode_roll_pos          60
+#define RMode_roll_pos          75
 /*MODE 5 - Left*/
 #define LMode_pitch_pos         30
 #define LMode_pitch_neg         -30
-#define LMode_roll_neg          -60
+#define LMode_roll_neg          -75
 
 #define Kp                          2.0f         // proportional gain governs rate of convergence to accelerometer/magnetometer
-#define Ki                          0.005f       // integral gain governs rate of convergence of gyroscope biases
+#define Ki                          0.01f       // integral gain governs rate of convergence of gyroscope biases
 #define PI                          M_PI
 #define AHRS_TASK_STACK_SIZE        644
 #define AHRS_TASK_PRIORITY          1
@@ -138,9 +138,7 @@ struct MPU9250 mpu9250[MPU9250_Number];
 * ------------------------------------------------------------------------------
 */
 //Key btn's value.
-extern uint8_t keysPressed;
-//Read 9-axis raw data's buffer.
-int16_t accelCount[3], gyroCount[3], magCount[3];
+uint8_t keyPressed;
 
 uint8_t attitude_mode = 0, attitude_mode_f = 0;
 uint8_t mode_change, mode_action_lock;
@@ -153,6 +151,14 @@ Task_Struct AHRSTask;
 Char AHRSTaskStack[AHRS_TASK_STACK_SIZE];
 
 int8_t function_angle = 0;
+
+/*
+ * PWM's Handle
+ */
+#define pwmPeriod       3000
+PWM_Handle PWM_R, PWM_G, PWM_B;
+int breath_cnt = 0;
+uint8_t cnt = 0;
 /* -----------------------------------------------------------------------------
 *  Public Functions
 * ------------------------------------------------------------------------------
@@ -168,6 +174,9 @@ uint8_t Attitude_Detect(float yaw, float pitch, float roll);
 void Attitude_Action(uint8_t action);
 void Send_Mouse(float yaw, float pitch, float roll, uint8_t key);
 void Send_Keyboard(uint8_t action);
+void Set_RGB_Led(uint8_t R, uint8_t G, uint8_t B);
+void Breath(void);
+void init(uint8_t sel);
 //===================================================================================================================
 //======
 //===================================================================================================================
@@ -188,10 +197,9 @@ void AHRS_taskFxn(UArg a0, UArg a1)
 {
     uint8_t i, keyvalue;
     float angle;
-/*
-    PWM_Handle pwm_r, pwm_g, pwm_b;
+    uint8_t lock;
     PWM_Params PWM_params;
-    uint16_t   pwmPeriod = 5000;      // Period and duty in microseconds
+
 /*
     ADC_Handle   adc;
     ADC_Params   ADC_params;
@@ -199,22 +207,25 @@ void AHRS_taskFxn(UArg a0, UArg a1)
 */
 
 //  PWM control RGB LED.
-    /*
+
     PWM_Params_init(&PWM_params);
     PWM_params.dutyUnits = PWM_DUTY_US;
     PWM_params.dutyValue = 0;
     PWM_params.periodUnits = PWM_PERIOD_US;
     PWM_params.periodValue = pwmPeriod;
-    pwm_r = PWM_open(Board_PWM0, &PWM_params);
-    pwm_g = PWM_open(Board_PWM1, &PWM_params);
-    pwm_b = PWM_open(Board_PWM2, &PWM_params);
+    PWM_R = PWM_open(Board_PWM0, &PWM_params);
+    PWM_G = PWM_open(Board_PWM1, &PWM_params);
+    PWM_B = PWM_open(Board_PWM2, &PWM_params);
 
-    PWM_start(pwm_r);
-    PWM_start(pwm_g);
-    PWM_start(pwm_b);
-    PWM_setDuty(pwm_r, 0);
-    PWM_setDuty(pwm_g, 0);
-    PWM_setDuty(pwm_b, 0);
+    PWM_start(PWM_R);
+    PWM_start(PWM_G);
+    PWM_start(PWM_B);
+    /*
+    PWM_setDuty(PWM_R, 0);
+    PWM_setDuty(PWM_G, pwmPeriod);
+    PWM_setDuty(PWM_B, pwmPeriod);
+    */
+    Set_RGB_Led(0xFF, 0x00, 0x00);
 /*
     ADC_init();
     ADC_Params_init(&ADC_params);
@@ -234,6 +245,7 @@ void AHRS_taskFxn(UArg a0, UArg a1)
     //1. Detect sensor status.
     Detect_Sensor();
     DELAY_MS(100);
+
     //2. Initialize sensor which is online.
     for (i = 0; i < MPU9250_Number; i++)
     {
@@ -244,37 +256,42 @@ void AHRS_taskFxn(UArg a0, UArg a1)
             mpu9250[i].quaternion[2] = 0;
             mpu9250[i].quaternion[3] = 0;
             MPU9250_init(i);
+
         }
     }
 
     //3. Set the Magnetometer's offset.
     Setting_Mag_Offset();
 
+    //Set Green LED.
+    Set_RGB_Led(0x00, 0xFF, 0x00);
+
     for (;;)
     {
         //取得每指姿態
         for (i = 0; i < MPU9250_Number; i++)
         {
+
             if (mpu9250[i].visable)
             {
-                SensorI2C_Select(i);
-                Read_Data(i);
-                Get_DeltaT(i);
+                if (SensorI2C_Select(i))
+                {
+                    Read_Data(i);
+                    Get_DeltaT(i);
 
-                //計算姿態
-                AHRSupdate(i, mpu9250[i].ax, mpu9250[i].ay, mpu9250[i].az, mpu9250[i].gx * PI / 180.0, mpu9250[i].gy * PI / 180.0, mpu9250[i].gz * PI / 180.0, mpu9250[i].mx, mpu9250[i].my, mpu9250[i].mz);
+                    //計算姿態
+                    AHRSupdate(i, mpu9250[i].ax, mpu9250[i].ay, mpu9250[i].az, mpu9250[i].gx * PI / 180.0, mpu9250[i].gy * PI / 180.0, mpu9250[i].gz * PI / 180.0, mpu9250[i].mx, mpu9250[i].my, mpu9250[i].mz);
 #if Debug_Msg_Quaternion
-                System_printf("[%d] : %f, %f, %f, %f", i, mpu9250[i].quaternion[0], mpu9250[i].quaternion[1], mpu9250[i].quaternion[2], mpu9250[i].quaternion[3]);
+                    System_printf("[%d]:%f,%f,%f,%f\r\n", i, mpu9250[i].quaternion[0], mpu9250[i].quaternion[1], mpu9250[i].quaternion[2], mpu9250[i].quaternion[3]);
 #endif
-                //轉為歐拉角
-                //QtoEular(quaternion[0], quaternion[1], -quaternion[2], -quaternion[3]);
-                QtoEular(i, mpu9250[i].quaternion[0], -mpu9250[i].quaternion[1], mpu9250[i].quaternion[2], -mpu9250[i].quaternion[3]);
+                    //轉為歐拉角
+                    //QtoEular(quaternion[0], quaternion[1], -quaternion[2], -quaternion[3]);
+                    QtoEular(i, mpu9250[i].quaternion[0], -mpu9250[i].quaternion[1], mpu9250[i].quaternion[2], -mpu9250[i].quaternion[3]);
 #if Debug_Msg_Eular
-
-                //System_printf("[%d] : %f, %f, %f\n", i, mpu9250[i].yaw, mpu9250[i].pitch, mpu9250[i].roll);
-                //System_printf("[%d] : %d, %d, %d\n", i, (int)mpu9250[i].yaw, (int)mpu9250[i].pitch, (int)mpu9250[i].roll);
-
+                    System_printf("[%d]:%f,%f,%f\r\n", i, mpu9250[i].yaw, mpu9250[i].pitch, mpu9250[i].roll);
 #endif
+                }
+
             }
         }
 
@@ -292,6 +309,18 @@ void AHRS_taskFxn(UArg a0, UArg a1)
             mode_change = FALSE;
         }
 
+        //按鍵判斷
+        angle = mpu9250[Button_Index].yaw - mpu9250[Attitude_Index].yaw;
+        if (angle < -180) angle += 360;
+        if (angle > 180) angle -= 360;
+
+        if (angle > 0){
+            keyPressed = true;
+        }
+        else{
+            keyPressed = false;
+        }
+
         //手勢動作
         switch(attitude_mode)
         {
@@ -304,7 +333,7 @@ void AHRS_taskFxn(UArg a0, UArg a1)
                 }
 
                 //移動鼠標
-                Send_Mouse(mpu9250[Mouse_Index].yaw, mpu9250[Mouse_Index].pitch, mpu9250[Mouse_Index].roll, keysPressed);
+                Send_Mouse(mpu9250[Mouse_Index].yaw, mpu9250[Mouse_Index].pitch, mpu9250[Mouse_Index].roll, keyPressed);
 
                 break;
             //2. Up Mode : 左右搖動，清除筆跡
@@ -365,7 +394,7 @@ void AHRS_taskFxn(UArg a0, UArg a1)
                             Send_Keyboard(Key_Next_Page);
                         }
 
-                        if (keysPressed)
+                        if (keyPressed)
                             change_data_yaw = mpu9250[Attitude_Index].yaw;
                         else
                             mode_action_lock = TRUE;
@@ -377,12 +406,14 @@ void AHRS_taskFxn(UArg a0, UArg a1)
                             //System_printf("Previous page.\r\n");
                             Send_Keyboard(Key_Previous_Page);
                         }
-                        if (keysPressed)
+                        if (keyPressed)
                             change_data_yaw = mpu9250[Attitude_Index].yaw;
                         else
                             mode_action_lock = TRUE;
                     }
                 }
+                break;
+            default:
                 break;
         }
 
@@ -391,6 +422,7 @@ void AHRS_taskFxn(UArg a0, UArg a1)
 
 
         //DELAY_MS(5);
+
     }
 }
 
@@ -428,21 +460,21 @@ void Detect_Sensor(void)
 void Setting_Mag_Offset(void)
 {
     /*Index 0*/
-    mpu9250[0].offset_mx = 21.0;
-    mpu9250[0].offset_my = 134.95;
-    mpu9250[0].offset_mz = 239.15;
+    mpu9250[0].offset_mx = -13.0;
+    mpu9250[0].offset_my = 122.95;
+    mpu9250[0].offset_mz = 78.15;
     /*Index 1*/
     mpu9250[1].offset_mx = 0.0;
     mpu9250[1].offset_my = 0.0;
     mpu9250[1].offset_mz = 0.0;
     /*Index 2. (Version2 - 1)*/
-    mpu9250[2].offset_mx = 100.46;
+    mpu9250[2].offset_mx = 40.46;
     mpu9250[2].offset_my = 84.72;
     mpu9250[2].offset_mz = 262.39;
     /*Index 3. (Version2 - 2)*/
-    mpu9250[3].offset_mx = 371.84;
-    mpu9250[3].offset_my = 82.47;
-    mpu9250[3].offset_mz = 230.90;
+    mpu9250[3].offset_mx = 135.84;
+    mpu9250[3].offset_my = 96.47;
+    mpu9250[3].offset_mz = 294.90;
     /*Index 4*/
     mpu9250[4].offset_mx = 0.0;
     mpu9250[4].offset_my = 0.0;
@@ -461,6 +493,8 @@ void Setting_Mag_Offset(void)
 
 void Read_Data(uint8_t sel)
 {
+    //Read 9-axis raw data's buffer.
+    int16_t accelCount[3], gyroCount[3], magCount[3];
 
     // 1. Read accel val
     readAccelData(accelCount);
@@ -475,23 +509,23 @@ void Read_Data(uint8_t sel)
     mpu9250[sel].gz = getGres(gyroCount[2]);
 
     //3. Read mag val
-    readMagData(magCount);
-    mpu9250[sel].mx = getMres(magCount[1]);
-    mpu9250[sel].my = getMres(magCount[0]);
-    mpu9250[sel].mz = -getMres(magCount[2]);
+    if(readMagData(&magCount))
+    {
+        mpu9250[sel].mx = getMres(magCount[1]);
+        mpu9250[sel].my = getMres(magCount[0]);
+        mpu9250[sel].mz = -getMres(magCount[2]);
 
-    //4. Offset
-    mpu9250[sel].mx -= mpu9250[sel].offset_mx;
-    mpu9250[sel].my -= mpu9250[sel].offset_my;
-    mpu9250[sel].mz -= mpu9250[sel].offset_mz;
+        //4. Offset
+        mpu9250[sel].mx -= mpu9250[sel].offset_mx;
+        mpu9250[sel].my -= mpu9250[sel].offset_my;
+        mpu9250[sel].mz -= mpu9250[sel].offset_mz;
+
+    }
 
 #if Debug_Msg_Rawdata
-    if(sel == 2)
-    {
     System_printf("[%d] : %f,%f,%f,", sel, mpu9250[sel].ax, mpu9250[sel].ay, mpu9250[sel].az);
     System_printf("%f,%f,%f,", mpu9250[sel].gx, mpu9250[sel].gy, mpu9250[sel].gz);
     System_printf("%f,%f,%f,", mpu9250[sel].mx, mpu9250[sel].my, mpu9250[sel].mz);
-    }
 #endif
 }
 void Get_DeltaT(uint8_t sel)
@@ -501,10 +535,7 @@ void Get_DeltaT(uint8_t sel)
     mpu9250[sel].deltat = (mpu9250[sel].now - mpu9250[sel].last) / 100000.0f;
     mpu9250[sel].last = mpu9250[sel].now;
 #if Debug_Msg_Rawdata
-    if(sel == 3)
-    {
     System_printf("%f\r\n", mpu9250[sel].deltat);
-    }
 
 #endif
 }
@@ -524,29 +555,20 @@ void Send_Mouse(float yaw, float pitch, float roll, uint8_t key)
 {
     uint8_t mouse_report[5];
 
-    //System_printf("%f, %f\n", yaw, pitch);
-
     float dyaw = yaw - yaw_f;
     float dpitch = pitch - pitch_f;
-    float dx = dyaw * ScreenX / 80 * Scale;
-    float dy = -dpitch * ScreenY / 60 * Scale;
+    int dx = dyaw * ScreenY / 60 * Scale;
+    int dy = -dpitch * ScreenY / 60 * Scale;
 
     //處理交界部分
     if (dyaw > 180 || dyaw < -180) dx = 0;
 
     //送出封包
     mouse_report[0] = key;
-    if((dx > 5) || (dx < -5))
-        mouse_report[1] = dx;
-    else
-        mouse_report[1] = 0;
-    if((dy > 5) || (dy < -5))
-        mouse_report[2] = dy;
-    else
-        mouse_report[2] = 0;
+    mouse_report[1] = dx;
+    mouse_report[2] = dy;
     mouse_report[3] = 0;
 #if Send_Mouse_Report
-    //if((dx > 3)||(dy > 3)||(dx < -3)||(dy < -3))
         HidEmuKbd_enqueueMsg(HIDEMUKBD_MOUSE_CHANGE_EVT, mouse_report, 0);
 #endif
 
@@ -586,6 +608,7 @@ void Send_Keyboard(uint8_t action)
     }
 #endif
 }
+
 
 void MPU9250_init(uint8_t sel){
 
@@ -777,3 +800,19 @@ void QtoEular(uint8_t sel, float q0, float q1, float q2, float q3) {
     mpu9250[sel].roll *= 180 / PI;
 }
 
+void Set_RGB_Led(uint8_t R, uint8_t G, uint8_t B)
+{
+    PWM_setDuty(PWM_R, (pwmPeriod - (pwmPeriod / 255) * R));
+    PWM_setDuty(PWM_G, (pwmPeriod - (pwmPeriod / 255) * G));
+    PWM_setDuty(PWM_B, (pwmPeriod - (pwmPeriod / 255) * B));
+}
+
+void Breath(void)
+{
+    breath_cnt += 1;
+    if (breath_cnt > pwmPeriod)
+    {
+        breath_cnt = 0;
+    }
+    PWM_setDuty(PWM_G, breath_cnt);
+}

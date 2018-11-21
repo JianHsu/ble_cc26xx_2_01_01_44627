@@ -168,7 +168,7 @@ void readGyroData(int16_t * destination)
     destination[2] = ((int16_t)rawData[4] << 8) | rawData[5] ;
 }
 
-void readMagData(int16_t * destination)
+bool readMagData(int16_t* destination)
 {
     uint8_t rawData[8];  // x/y/z gyro register data, ST2 register stored here, must read ST2 at end of data acquisition
 
@@ -186,7 +186,16 @@ void readMagData(int16_t * destination)
             destination[0] = ((int16_t)rawData[2] << 8) | rawData[1] ;  // Turn the MSB and LSB into a signed 16-bit value
             destination[1] = ((int16_t)rawData[4] << 8) | rawData[3] ;  // Data stored as little Endian
             destination[2] = ((int16_t)rawData[6] << 8) | rawData[5] ;
+            return true;
         }
+        else
+        {
+            return false;
+        }
+    }
+    else
+    {
+        return false;
     }
 }
 
@@ -313,7 +322,8 @@ void initMPU9250(void)
     // Range selects FS_SEL and GFS_SEL are 0 - 3, so 2-bit values are left-shifted into positions 4:3
     SensorI2C_readReg(MPU9250_ADDRESS, GYRO_CONFIG, &c, 1); // get current GYRO_CONFIG register value
     // c = c & ~0xE0; // Clear self-test bits [7:5]
-    c = c & ~0x02; // Clear Fchoice bits [1:0]
+    //Jian:c = c & ~0x02; // Clear Fchoice bits [1:0]
+    c = c & ~0x03; // Clear Fchoice bits [1:0]
     c = c & ~0x18; // Clear GFS bits [4:3]
     c = c | Gscale << 3; // Set full scale range for the gyro
     // c =| 0x00; // Set Fchoice for the gyro to 11 by writing its inverse to bits 1:0 of GYRO_CONFIG
@@ -341,10 +351,10 @@ void initMPU9250(void)
     // clear on read of INT_STATUS, and enable I2C_BYPASS_EN so additional chips
     // can join the I2C bus and all can be controlled by the Arduino as master
     //SensorI2C_writeReg(MPU9250_ADDRESS, INT_PIN_CFG, 0x22);
-
+    //SensorI2C_writeReg(MPU9250_ADDRESS, INT_ENABLE, 0x01);
     SensorI2C_writeReg(MPU9250_ADDRESS, USER_CTRL, 0x20);   //I2C Master Mode.
     SensorI2C_writeReg(MPU9250_ADDRESS, INT_ENABLE, 0x00);  // Disable data ready (bit 0) interrupt
-
+    SensorI2C_writeReg(MPU9250_ADDRESS, INT_PIN_CFG, 0x20);
     DELAY_MS(100);
 
 }

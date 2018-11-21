@@ -218,7 +218,7 @@ void initAK8963(void);
 void magcalMPU9250(float * dest1, float * dest2);
 void readAccelData(int16_t* destination);
 void readGyroData(int16_t* destination);
-void readMagData(int16_t* destination);
+bool readMagData(int16_t* destination);
 float getAres(int16_t rawData);
 float getGres(int16_t rawData);
 float getMres(int16_t rawData);
