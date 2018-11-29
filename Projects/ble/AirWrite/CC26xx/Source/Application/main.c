@@ -80,7 +80,7 @@ int main()
 {
 
   PIN_init(BoardGpioInitTable);
-
+  PINCC26XX_setOutputValue(PIN_ID(11), 0);
 #ifndef POWER_SAVING
     /* Set constraints for Standby, powerdown and idle mode */
     Power_setConstraint  (Power_SB_DISALLOW);

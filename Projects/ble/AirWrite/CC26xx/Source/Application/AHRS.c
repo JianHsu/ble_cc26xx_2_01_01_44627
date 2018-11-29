@@ -69,7 +69,7 @@
 /*For debug*/
 #define Debug_Msg_Rawdata       0
 #define Debug_Msg_Quaternion    0
-#define Debug_Msg_Eular         0
+#define Debug_Msg_Eular         1
 #define Send_Mouse_Report       1
 #define Send_Keyboard_Report    0
 /*End of debug*/
@@ -159,6 +159,7 @@ int8_t function_angle = 0;
 PWM_Handle PWM_R, PWM_G, PWM_B;
 int breath_cnt = 0;
 uint8_t cnt = 0;
+
 /* -----------------------------------------------------------------------------
 *  Public Functions
 * ------------------------------------------------------------------------------
@@ -471,9 +472,9 @@ void Setting_Mag_Offset(void)
     mpu9250[2].offset_mx = 40.46;
     mpu9250[2].offset_my = 84.72;
     mpu9250[2].offset_mz = 262.39;
-    /*Index 3. (Version2 - 2)*/
-    mpu9250[3].offset_mx = 135.84;
-    mpu9250[3].offset_my = 96.47;
+    /*Index 3. (Version2 - 4)*/
+    mpu9250[3].offset_mx = 35.84;
+    mpu9250[3].offset_my = 186.47;
     mpu9250[3].offset_mz = 294.90;
     /*Index 4*/
     mpu9250[4].offset_mx = 0.0;
@@ -488,6 +489,12 @@ void Setting_Mag_Offset(void)
     mpu9250[3].offset_mx = 380.84;
     mpu9250[3].offset_my = 90.71;
     mpu9250[3].offset_mz = 257.89;
+    */
+    /*
+    //Index 3. (Version2 - 2)
+    mpu9250[3].offset_mx = 135.84;
+    mpu9250[3].offset_my = 96.47;
+    mpu9250[3].offset_mz = 294.90;
     */
 }
 
